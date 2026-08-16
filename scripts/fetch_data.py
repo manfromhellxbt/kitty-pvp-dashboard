@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Kitty PVP Dashboard — data fetcher (runs on VPS via cron every 6h).
+Kitty PVP Dashboard — data fetcher (runs on VPS via cron every 1h).
 Collects data from OpenSea API v2 + Blockscout (Robinhood chain),
 writes public/data.json for the static frontend.
 

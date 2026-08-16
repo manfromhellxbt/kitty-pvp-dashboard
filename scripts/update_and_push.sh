@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Kitty PVP Dashboard — update data.json every 6h and push to GitHub Pages
+# Kitty PVP Dashboard — update data.json every 1h and push to GitHub Pages
 set -euo pipefail
 
 REPO="/opt/data/kitty-pvp-dashboard"

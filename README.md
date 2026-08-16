@@ -23,12 +23,12 @@ Live analytics dashboard for **Robinhood Kitties** NFT collections on the Robinh
 ┌──────────────────────┐            ┌──────────────────────────┐
 │ scripts/fetch_data.py │            │ index.html               │
 │ + OPENSEA_API_KEY    │─commit──→  │ public/data.json         │
-│ cron every 6h        │   every 6h │ (aggregated public data)  │
+│ cron every 1h        │   every 1h │ (aggregated public data)  │
 └──────────────────────┘            └──────────────────────────┘
 ```
 
 - **Frontend:** static `index.html`, reads `data.json` via fetch. No build step.
-- **Data pipeline:** Python script on a VPS fetches from OpenSea API v2 + Blockscout every 6h, commits `data.json` to this repo. GitHub Pages auto-deploys.
+- **Data pipeline:** Python script on a VPS fetches from OpenSea API v2 + Blockscout every 1h, commits `data.json` to this repo. GitHub Pages auto-deploys.
 - **Secrets:** the OpenSea API key lives ONLY on the VPS (`/opt/data/config/opensea_key.txt`). It is never committed to this repo.
 - The data in `data.json` is aggregated from public on-chain sources — anyone can see the same on Blockscout/OpenSea.
 
