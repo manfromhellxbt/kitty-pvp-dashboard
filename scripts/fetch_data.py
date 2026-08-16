@@ -41,13 +41,21 @@ COLLECTIONS = [
 UA = {"User-Agent": "kitty-dashboard/1.0"}
 
 
-def fetch_json(url, headers=None):
+def fetch_json(url, headers=None, retries=3):
     h = dict(UA)
     if headers:
         h.update(headers)
-    req = urllib.request.Request(url, headers=h)
-    with urllib.request.urlopen(req, timeout=30) as r:
-        return json.loads(r.read().decode())
+    last = None
+    for attempt in range(retries):
+        try:
+            req = urllib.request.Request(url, headers=h)
+            with urllib.request.urlopen(req, timeout=30) as r:
+                return json.loads(r.read().decode())
+        except Exception as e:
+            last = e
+            if attempt + 1 < retries:
+                time.sleep(1.5 * (attempt + 1))
+    raise last
 
 
 def os_get(path):
@@ -186,6 +194,22 @@ def fetch_listings(slug):
     }
 
 
+def load_prev_top(slug):
+    path = os.path.join(os.path.dirname(__file__), "..", "data.json")
+    try:
+        prev = json.load(open(path))
+    except Exception:
+        return []
+    for c in prev.get("collections") or []:
+        if c.get("slug") == slug:
+            return [
+                {"address": h["address"], "nftCount": h.get("nftCount", 0), "isContract": h.get("isContract", False)}
+                for h in (c.get("top_holders") or [])
+                if h.get("address")
+            ]
+    return []
+
+
 def fetch_all():
     eth_price = fetch_eth_price()
     collections = []
@@ -194,6 +218,11 @@ def fetch_all():
         meta = fetch_collection_meta(col["slug"])
         stats = fetch_collection_stats(col["slug"])
         holders_count, top_holders = fetch_token_holders_info(col["address"])
+        if not top_holders:
+            prev = load_prev_top(col["slug"])
+            if prev:
+                print(f"[warn] holders empty for {col['slug']}, reusing {len(prev)} previous addresses", file=sys.stderr)
+                top_holders = prev
         # Prefer OpenSea num_owners if Blockscout holders_count failed (0 or only top pages)
         if not holders_count or holders_count < len(top_holders):
             holders_count = stats.get("numOwners") or holders_count or len(top_holders)
