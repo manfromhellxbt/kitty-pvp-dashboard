@@ -30,8 +30,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple
 .compare-title{font-size:14px;font-weight:590;letter-spacing:-.01em}
 .compare-note{font-size:12px;color:var(--text3)}
 .compare-group td{background:rgba(255,255,255,.025);color:var(--text4);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;padding:10px 20px;border-bottom:1px solid var(--border-subtle)}
-.lead{color:var(--emerald);font-weight:500}
-.delta-up{color:var(--emerald)}.delta-down{color:var(--red)}.delta-flat{color:var(--text4)}
 .cell-main{display:block}
 .cell-sub{display:block;font-size:11px;color:var(--text4);font-weight:400;margin-top:2px}
 .collection-section{margin-bottom:48px}
@@ -62,6 +60,12 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple
 .addr-cell a:hover{color:var(--accent-hover)}
 .contract-tag{font-size:10px;padding:1px 6px;background:rgba(113,112,255,.1);color:var(--accent);border-radius:4px;border:1px solid rgba(113,112,255,.2)}
 .num-cell{font-family:'JetBrains Mono',monospace;text-align:right;color:var(--text)}
+.table td.lead,.table td.lead .cell-main{color:var(--emerald);font-weight:500}
+.table td.delta-up{color:var(--emerald)}
+.table td.delta-down{color:var(--red)}
+.table td.delta-flat{color:var(--text4)}
+.metric-sub .delta-up{color:var(--emerald)}
+.metric-sub .delta-down{color:var(--red)}
 .footer{border-top:1px solid var(--border-subtle);padding:24px 0 48px;margin-top:48px;font-size:12px;color:var(--text4);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .footer a{color:var(--text3);text-decoration:none}
 .footer a:hover{color:var(--text2)}
@@ -244,7 +248,7 @@ async function main() {
   html += `
 <footer class="footer"><div class="container" style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:12px">
   <span>Данные: OpenSea API v2 · Blockscout Robinhood · обновление каждые 6ч</span>
-  <span><a href="https://github.com/manfromhellxbt/kitty-pvp-dashboard" target="_blank" rel="noopener">GitHub</a> · <a href="https://opensea.io/collection/robinhood-kitties" target="_blank" rel="noopener">OpenSea</a> · <a href="https://robinhoodchain.blockscout.com" target="_blank" rel="noopener">Blockscout</a></span>
+  <span><a href="https://github.com/manfromhellxbt/kitty-pvp-dashboard" target="_blank" rel="noopener">GitHub</a> · <a href="https://robinhoodchain.blockscout.com" target="_blank" rel="noopener">Blockscout</a></span>
 </div></footer>`;
 
   document.getElementById('app').innerHTML = html;
