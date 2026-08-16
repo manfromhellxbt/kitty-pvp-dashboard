@@ -5,8 +5,8 @@ Live analytics dashboard for **Robinhood Kitties** NFT collections on the Robinh
 🌐 **Live:** https://manfromhellxbt.github.io/kitty-pvp-dashboard/
 
 ## Collections
-- [robinhood-kitties](https://opensea.io/collection/robinhood-kitties)
-- [robinhood-kitties11](https://opensea.io/collection/robinhood-kitties11)
+- [robinhood-kitties](https://opensea.io/collection/robinhood-kitties) (V2)
+- [robinhoodkitties](https://opensea.io/collection/robinhoodkitties) (V1)
 
 ## Metrics shown
 - Comparison table V1 vs V2 (holders, supply, uniqueness, floor, median listing, volume/sales total + 24h/7d/30d, listings)

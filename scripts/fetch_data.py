@@ -45,20 +45,20 @@ DUNE_SINCE_DEFAULT = "2025-01-01"
 ZERO = "0x0000000000000000000000000000000000000000"
 _sales_cache = {}
 
+OPENSEA_CHAIN = "robinhood"
 COLLECTIONS = [
     {
-        "slug": "robinhood-kitties11",
         "name": "V1 Kitties",
         "address": "0xAe42D5511886590538160A3cbDb91388cf1e76A3",
-        "opensea_url": "https://opensea.io/collection/robinhood-kitties11",
         "version": "V1",
+        # OpenSea slugs change; contract is the source of truth.
+        "slug_aliases": ["robinhoodkitties", "robinhood-kitties11"],
     },
     {
-        "slug": "robinhood-kitties",
         "name": "V2 Kitties",
         "address": "0x979364e11831c9508771a226245b6e97fb9a45d1",
-        "opensea_url": "https://opensea.io/collection/robinhood-kitties",
         "version": "V2",
+        "slug_aliases": ["robinhood-kitties"],
     },
 ]
 
@@ -496,6 +496,51 @@ def fetch_portfolio(address):
         return {}
 
 
+def _collection_alive(meta, stats):
+    supply = int(meta.get("total_supply") or 0)
+    floor = float((stats or {}).get("floorPrice") or 0)
+    volume = float((stats or {}).get("volume") or 0)
+    sales = float((stats or {}).get("sales") or 0)
+    return bool(supply or floor or volume or sales)
+
+
+def slug_from_contract(address):
+    try:
+        d = os_get(f"/chain/{OPENSEA_CHAIN}/contract/{address}")
+    except Exception as e:
+        print(f"[warn] contract {address[:10]}: {e}", file=sys.stderr)
+        return None
+    slug = (d.get("collection") or "").strip()
+    return slug or None
+
+
+def resolve_collection(col):
+    """Live OpenSea slug for this contract, with alias fallback."""
+    aliases = [s for s in (col.get("slug_aliases") or []) if s]
+    slug = slug_from_contract(col["address"])
+    candidates = []
+    for s in [slug] + aliases:
+        if s and s not in candidates:
+            candidates.append(s)
+    last_meta, last_stats, last_slug = {}, None, None
+    for s in candidates:
+        meta = fetch_collection_meta(s)
+        stats = fetch_collection_stats(s)
+        last_meta, last_stats, last_slug = meta, stats, s
+        if _collection_alive(meta, stats):
+            if slug and s != slug:
+                print(f"[info] {col['version']} contract slug {slug} empty, using {s}", file=sys.stderr)
+            else:
+                print(f"[info] {col['version']} OpenSea slug {s}", file=sys.stderr)
+            return s, meta, stats
+        print(f"[warn] {col['version']} slug {s} has no live stats", file=sys.stderr)
+    print(f"[warn] {col['version']} no live OpenSea slug, using {last_slug}", file=sys.stderr)
+    return last_slug or (aliases[0] if aliases else ""), last_meta, last_stats or {
+        "volume": 0, "sales": 0, "numOwners": 0, "floorPrice": 0,
+        "floorPriceSymbol": "ETH", "intervals": [],
+    }
+
+
 def fetch_collection_meta(slug):
     try:
         return os_get(f"/collections/{slug}")
@@ -561,19 +606,23 @@ def fetch_listings(slug):
     }
 
 
-def load_prev_top(slug):
+def load_prev_top(contract, slug=None):
     path = os.path.join(os.path.dirname(__file__), "..", "data.json")
     try:
         prev = json.load(open(path))
     except Exception:
         return []
+    want = (contract or "").lower()
     for c in prev.get("collections") or []:
-        if c.get("slug") == slug:
-            return [
-                {"address": h["address"], "nftCount": h.get("nftCount", 0), "isContract": h.get("isContract", False)}
-                for h in (c.get("top_holders") or [])
-                if h.get("address")
-            ]
+        same_contract = (c.get("contract_address") or "").lower() == want
+        same_slug = slug and c.get("slug") == slug
+        if not (same_contract or same_slug):
+            continue
+        return [
+            {"address": h["address"], "nftCount": h.get("nftCount", 0), "isContract": h.get("isContract", False)}
+            for h in (c.get("top_holders") or [])
+            if h.get("address")
+        ]
     return []
 
 
@@ -588,14 +637,14 @@ def fetch_all():
         print(f"[warn] dune unavailable, falling back to OpenSea trades: {e}", file=sys.stderr)
     collections = []
     for col in COLLECTIONS:
-        print(f"[info] fetching {col['slug']}...", file=sys.stderr)
-        meta = fetch_collection_meta(col["slug"])
-        stats = fetch_collection_stats(col["slug"])
+        print(f"[info] fetching {col['version']} {col['address']}...", file=sys.stderr)
+        slug, meta, stats = resolve_collection(col)
+        opensea_url = f"https://opensea.io/collection/{slug}" if slug else ""
         holders_count, top_holders = fetch_token_holders_info(col["address"])
         if not top_holders:
-            prev = load_prev_top(col["slug"])
+            prev = load_prev_top(col["address"], slug)
             if prev:
-                print(f"[warn] holders empty for {col['slug']}, reusing {len(prev)} previous addresses", file=sys.stderr)
+                print(f"[warn] holders empty for {col['version']}, reusing {len(prev)} previous addresses", file=sys.stderr)
                 top_holders = prev
         # Prefer OpenSea num_owners if Blockscout holders_count failed (0 or only top pages)
         if not holders_count or holders_count < len(top_holders):
@@ -615,13 +664,15 @@ def fetch_all():
                     h["address"], col["address"], h.get("nftCount") or 0, floor
                 )
 
-        listings = fetch_listings(col["slug"])
+        listings = fetch_listings(slug) if slug else {
+            "count": 0, "totalVolumeEth": 0, "floorFromListings": 0, "medianPriceEth": 0,
+        }
 
         collections.append({
-            "slug": col["slug"],
+            "slug": slug,
             "name": col["name"],
             "version": col["version"],
-            "opensea_url": col["opensea_url"],
+            "opensea_url": opensea_url,
             "total_supply": meta.get("total_supply") or 0,
             "unique_holders": holders_count or stats["numOwners"] or len(top_holders),
             "stats": stats,
