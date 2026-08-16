@@ -110,7 +110,7 @@ def fetch_token_holders_info(addr):
 
 def fetch_portfolio(address):
     try:
-        d = os_get(f"/account/{address}/portfolio?chains=robinhood")
+        d = os_get(f"/account/{address}/portfolio")
         return {
             "tokenValueUsd": float(d.get("token_value_usd") or 0),
             "nftValueUsd": float(d.get("nft_value_usd") or 0),
