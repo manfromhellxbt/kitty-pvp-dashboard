@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-16T14:00:36.405394+00:00",
-  "ethPriceUsd": 1879.91,
+  "generatedAt": "2026-08-16T14:27:57.081508+00:00",
+  "ethPriceUsd": 1881.93,
   "collections": [
     {
       "slug": "robinhood-kitties",
@@ -12,13 +12,13 @@
         "volume": 89.46667035732418,
         "sales": 3382,
         "numOwners": 619,
-        "floorPrice": 0.0359863,
+        "floorPrice": 0.034993399999,
         "floorPriceSymbol": "ETH",
         "intervals": [
           {
             "interval": "one_day",
-            "volume": 4.735467748993,
-            "sales": 137
+            "volume": 4.467467748993,
+            "sales": 133
           },
           {
             "interval": "seven_day",
@@ -33,251 +33,251 @@
         ]
       },
       "listings": {
-        "count": 310,
-        "totalVolumeEth": 209.4419,
-        "floorFromListings": 0.036,
-        "medianPriceEth": 0.15
+        "count": 312,
+        "totalVolumeEth": 207.6585,
+        "floorFromListings": 0.035,
+        "medianPriceEth": 0.195
       },
       "topHolders": [
         {
           "address": "0x117337b4a2ce4998d3c5ee0d442ac0643fde0c11",
           "nftCount": 80,
           "isContract": false,
-          "tokenValueUsd": 1223.87,
-          "nftValueUsd": 4168.93,
-          "totalValueUsd": 5392.8,
-          "pnlAbsolute": -4023.66,
-          "pnlPercentage": -42.73
+          "tokenValueUsd": 1225.41,
+          "nftValueUsd": 4375.92,
+          "totalValueUsd": 5601.33,
+          "pnlAbsolute": -4532.71,
+          "pnlPercentage": -44.73
         },
         {
           "address": "0xea8a5b58fbae1ff68cb1a83a4aac24a5e6713bc0",
           "nftCount": 52,
           "isContract": false,
-          "tokenValueUsd": 6131.52,
-          "nftValueUsd": 2652.21,
-          "totalValueUsd": 8783.72,
-          "pnlAbsolute": -9722.68,
-          "pnlPercentage": -52.54
+          "tokenValueUsd": 6279.71,
+          "nftValueUsd": 2782.88,
+          "totalValueUsd": 9062.59,
+          "pnlAbsolute": -9887.17,
+          "pnlPercentage": -52.18
         },
         {
           "address": "0x510dcb4deedf12e89b156d11b990752eb7653e66",
           "nftCount": 44,
           "isContract": false,
-          "tokenValueUsd": 2753.54,
-          "nftValueUsd": 2067.92,
-          "totalValueUsd": 4821.46,
-          "pnlAbsolute": -2338.77,
-          "pnlPercentage": -32.66
+          "tokenValueUsd": 2742.62,
+          "nftValueUsd": 2178.27,
+          "totalValueUsd": 4920.89,
+          "pnlAbsolute": -2613.52,
+          "pnlPercentage": -34.69
         },
         {
           "address": "0x32be5ddfca516f5ad4ce4a0346e87f5a596581fc",
           "nftCount": 31,
           "isContract": false,
-          "tokenValueUsd": 3811.26,
-          "nftValueUsd": 1456.95,
-          "totalValueUsd": 5268.21,
-          "pnlAbsolute": -2158.14,
-          "pnlPercentage": -29.06
+          "tokenValueUsd": 3806.94,
+          "nftValueUsd": 1534.69,
+          "totalValueUsd": 5341.63,
+          "pnlAbsolute": -2348.35,
+          "pnlPercentage": -30.54
         },
         {
           "address": "0x1ed3f00fa2ca1d053b418e57bdafaa435c7be19a",
           "nftCount": 31,
           "isContract": false,
-          "tokenValueUsd": 184.2,
-          "nftValueUsd": 1465.59,
-          "totalValueUsd": 1649.8,
-          "pnlAbsolute": -1724.99,
-          "pnlPercentage": -51.11
+          "tokenValueUsd": 184.44,
+          "nftValueUsd": 1543.16,
+          "totalValueUsd": 1727.6,
+          "pnlAbsolute": -1910.6,
+          "pnlPercentage": -52.51
         },
         {
           "address": "0xf478f82889986937bf446f53d6b6a4c54163f90c",
           "nftCount": 30,
           "isContract": false,
-          "tokenValueUsd": 194536.4,
-          "nftValueUsd": 22512.99,
-          "totalValueUsd": 217049.39,
-          "pnlAbsolute": -4088.87,
-          "pnlPercentage": -1.85
+          "tokenValueUsd": 190502.49,
+          "nftValueUsd": 22572.36,
+          "totalValueUsd": 213074.86,
+          "pnlAbsolute": -8328.13,
+          "pnlPercentage": -3.76
         },
         {
           "address": "0x78b8256436ff280f6cace8bd9491c033b6e95850",
           "nftCount": 26,
           "isContract": false,
-          "tokenValueUsd": 21.92,
-          "nftValueUsd": 1342.65,
-          "totalValueUsd": 1364.57,
-          "pnlAbsolute": -1492.61,
-          "pnlPercentage": -52.24
+          "tokenValueUsd": 21.95,
+          "nftValueUsd": 1408.19,
+          "totalValueUsd": 1430.14,
+          "pnlAbsolute": -1648.94,
+          "pnlPercentage": -53.55
         },
         {
           "address": "0x514d1105c57fbf143ee128ef18aa430facda2151",
           "nftCount": 26,
           "isContract": false,
-          "tokenValueUsd": 351.46,
-          "nftValueUsd": 9558.54,
-          "totalValueUsd": 9910.0,
-          "pnlAbsolute": -2409.45,
-          "pnlPercentage": -19.56
+          "tokenValueUsd": 351.77,
+          "nftValueUsd": 9600.36,
+          "totalValueUsd": 9952.13,
+          "pnlAbsolute": -2667.37,
+          "pnlPercentage": -21.14
         },
         {
           "address": "0xca88c31ad2878142bce521c0f8bbabebbc685dd9",
           "nftCount": 24,
           "isContract": true,
-          "tokenValueUsd": 1828.95,
-          "nftValueUsd": 4650.12,
-          "totalValueUsd": 6479.08,
-          "pnlAbsolute": -358.22,
-          "pnlPercentage": -5.24
+          "tokenValueUsd": 1813.77,
+          "nftValueUsd": 4648.96,
+          "totalValueUsd": 6462.73,
+          "pnlAbsolute": -793.84,
+          "pnlPercentage": -10.94
         },
         {
           "address": "0xc8b5493658b3426128e5a47e70942144b21f3301",
           "nftCount": 23,
           "isContract": false,
-          "tokenValueUsd": 5170.02,
-          "nftValueUsd": 3891.83,
-          "totalValueUsd": 9061.85,
-          "pnlAbsolute": 180.89,
-          "pnlPercentage": 2.04
+          "tokenValueUsd": 6022.71,
+          "nftValueUsd": 3817.8,
+          "totalValueUsd": 9840.51,
+          "pnlAbsolute": 710.0,
+          "pnlPercentage": 7.78
         },
         {
           "address": "0x814a128c8b65e428dc9864cac3d3031b03e677bc",
           "nftCount": 22,
           "isContract": false,
-          "tokenValueUsd": 58018.59,
-          "nftValueUsd": 3534.46,
-          "totalValueUsd": 61553.05,
-          "pnlAbsolute": -2337.43,
-          "pnlPercentage": -3.66
+          "tokenValueUsd": 58003.13,
+          "nftValueUsd": 3600.39,
+          "totalValueUsd": 61603.52,
+          "pnlAbsolute": -2491.96,
+          "pnlPercentage": -3.89
         },
         {
           "address": "0x4cb2f2726f998b62edcb2ea47d217b9c0d8a55f7",
           "nftCount": 21,
           "isContract": false,
           "tokenValueUsd": 0.83,
-          "nftValueUsd": 995.61,
-          "totalValueUsd": 996.44,
-          "pnlAbsolute": -1168.76,
-          "pnlPercentage": -53.98
+          "nftValueUsd": 1048.1,
+          "totalValueUsd": 1048.93,
+          "pnlAbsolute": -1294.63,
+          "pnlPercentage": -55.24
         },
         {
           "address": "0xed9ba0bf79e04f8aff7c1ab74aacb67bf0fd9075",
           "nftCount": 20,
           "isContract": false,
-          "tokenValueUsd": 88023.04,
-          "nftValueUsd": 948.61,
-          "totalValueUsd": 88971.66,
-          "pnlAbsolute": -2108.95,
-          "pnlPercentage": -2.32
+          "tokenValueUsd": 88056.6,
+          "nftValueUsd": 998.59,
+          "totalValueUsd": 89055.19,
+          "pnlAbsolute": -2195.27,
+          "pnlPercentage": -2.41
         },
         {
           "address": "0xb9b54bc0b82ad5efd09a06ce68bae7b870b0ddc5",
           "nftCount": 20,
           "isContract": true,
           "tokenValueUsd": 424.54,
-          "nftValueUsd": 948.61,
-          "totalValueUsd": 1373.15,
-          "pnlAbsolute": -730.85,
-          "pnlPercentage": -34.74
+          "nftValueUsd": 998.59,
+          "totalValueUsd": 1423.13,
+          "pnlAbsolute": -850.73,
+          "pnlPercentage": -37.41
         },
         {
           "address": "0x812e695bc5f12cc6080236cc3a3023095da2e75f",
           "nftCount": 20,
           "isContract": false,
-          "tokenValueUsd": 13641.61,
-          "nftValueUsd": 939.97,
-          "totalValueUsd": 14581.57,
-          "pnlAbsolute": -1118.13,
-          "pnlPercentage": -7.12
+          "tokenValueUsd": 13659.6,
+          "nftValueUsd": 990.12,
+          "totalValueUsd": 14649.72,
+          "pnlAbsolute": -1220.06,
+          "pnlPercentage": -7.69
         }
       ],
       "contractAddress": "0x979364e11831c9508771a226245b6e97fb9a45d1",
       "blockscoutUrl": "https://robinhoodchain.blockscout.com/token/0x979364e11831c9508771a226245b6e97fb9a45d1?tab=holders",
-      "lastUpdatedISO": "2026-08-16T14:00:22.941498+00:00"
+      "lastUpdatedISO": "2026-08-16T14:27:54.568726+00:00"
     },
     {
       "slug": "robinhood-kitties11",
       "name": "Robinhood Kitties",
       "openseaUrl": "https://opensea.io/collection/robinhood-kitties11",
       "totalSupply": 2222,
-      "uniqueHolders": 465,
+      "uniqueHolders": 464,
       "stats": {
-        "volume": 14.942740249799531,
-        "sales": 1910,
-        "numOwners": 465,
-        "floorPrice": 0.02449,
+        "volume": 14.954471711659933,
+        "sales": 1911,
+        "numOwners": 464,
+        "floorPrice": 0.02,
         "floorPriceSymbol": "ETH",
         "intervals": [
           {
             "interval": "one_day",
-            "volume": 14.494290869799531,
-            "sales": 1783
+            "volume": 12.37001469123504,
+            "sales": 1080
           },
           {
             "interval": "seven_day",
-            "volume": 14.494290869799537,
-            "sales": 1783
+            "volume": 14.50607236160628,
+            "sales": 1784
           },
           {
             "interval": "thirty_day",
-            "volume": 14.724410869799534,
-            "sales": 1837
+            "volume": 14.736166688940052,
+            "sales": 1838
           }
         ]
       },
       "listings": {
-        "count": 202,
-        "totalVolumeEth": 36.7366,
-        "floorFromListings": 0.0245,
-        "medianPriceEth": 0.05
+        "count": 207,
+        "totalVolumeEth": 37.5848,
+        "floorFromListings": 0.02,
+        "medianPriceEth": 0.0469
       },
       "topHolders": [
         {
           "address": "0xca88c31ad2878142bce521c0f8bbabebbc685dd9",
           "nftCount": 95,
           "isContract": true,
-          "tokenValueUsd": 1828.95,
-          "nftValueUsd": 4650.12,
-          "totalValueUsd": 6479.08,
-          "pnlAbsolute": -358.22,
-          "pnlPercentage": -5.24
+          "tokenValueUsd": 1813.77,
+          "nftValueUsd": 4648.96,
+          "totalValueUsd": 6462.73,
+          "pnlAbsolute": -793.84,
+          "pnlPercentage": -10.94
         },
         {
           "address": "0xc630c5e9b6117c88dd6cd6fcc7418e2039727136",
           "nftCount": 90,
           "isContract": false,
-          "tokenValueUsd": 674.24,
-          "nftValueUsd": 8721.18,
-          "totalValueUsd": 9395.42,
-          "pnlAbsolute": -7712.06,
-          "pnlPercentage": -45.08
+          "tokenValueUsd": 655.07,
+          "nftValueUsd": 8900.17,
+          "totalValueUsd": 9555.25,
+          "pnlAbsolute": -7993.97,
+          "pnlPercentage": -45.55
         },
         {
           "address": "0x53d4e41900decf004ebe9cefa0396dac1257ff30",
           "nftCount": 60,
           "isContract": false,
-          "tokenValueUsd": 336.6,
-          "nftValueUsd": 1528.57,
-          "totalValueUsd": 1865.18,
-          "pnlAbsolute": 989.68,
-          "pnlPercentage": 113.04
+          "tokenValueUsd": 337.04,
+          "nftValueUsd": 1548.81,
+          "totalValueUsd": 1885.85,
+          "pnlAbsolute": 844.48,
+          "pnlPercentage": 81.09
         },
         {
           "address": "0x1d915159aeee1c9d71b4be758301938b26be0966",
           "nftCount": 51,
           "isContract": false,
-          "tokenValueUsd": 202.47,
-          "nftValueUsd": 3472.61,
-          "totalValueUsd": 3675.08,
-          "pnlAbsolute": 132.33,
-          "pnlPercentage": 3.74
+          "tokenValueUsd": 202.82,
+          "nftValueUsd": 3111.54,
+          "totalValueUsd": 3314.36,
+          "pnlAbsolute": 759.8,
+          "pnlPercentage": 29.74
         },
         {
           "address": "0x18f0460e495d596f8226491a04761e12ea0f0748",
           "nftCount": 48,
           "isContract": false,
-          "tokenValueUsd": 685.27,
-          "nftValueUsd": 1200.15,
-          "totalValueUsd": 1885.42,
+          "tokenValueUsd": 686.16,
+          "nftValueUsd": 1219.77,
+          "totalValueUsd": 1905.93,
           "pnlAbsolute": 0.0,
           "pnlPercentage": 0.0
         },
@@ -285,106 +285,106 @@
           "address": "0xedfaea2d08fcd8e814c480d3a55b49f9550c9df6",
           "nftCount": 33,
           "isContract": false,
-          "tokenValueUsd": 27.66,
-          "nftValueUsd": 1925.8,
-          "totalValueUsd": 1953.46,
-          "pnlAbsolute": 75.62,
-          "pnlPercentage": 4.03
+          "tokenValueUsd": 27.7,
+          "nftValueUsd": 1948.81,
+          "totalValueUsd": 1976.51,
+          "pnlAbsolute": -1.85,
+          "pnlPercentage": -0.09
         },
         {
           "address": "0x4f50f3f6c3c1094dbebcf02be8b0fa976ff6cfe5",
           "nftCount": 32,
           "isContract": false,
-          "tokenValueUsd": 333.46,
-          "nftValueUsd": 1544.28,
-          "totalValueUsd": 1877.74,
-          "pnlAbsolute": 30.83,
-          "pnlPercentage": 1.67
+          "tokenValueUsd": 325.61,
+          "nftValueUsd": 1546.26,
+          "totalValueUsd": 1871.87,
+          "pnlAbsolute": 7.67,
+          "pnlPercentage": 0.41
         },
         {
           "address": "0x3b970a579dd81c3638731a32907ee7b818f7ed56",
           "nftCount": 27,
           "isContract": false,
-          "tokenValueUsd": 199.98,
-          "nftValueUsd": 834.88,
-          "totalValueUsd": 1034.86,
-          "pnlAbsolute": 636.84,
-          "pnlPercentage": 160.0
+          "tokenValueUsd": 199.71,
+          "nftValueUsd": 834.83,
+          "totalValueUsd": 1034.54,
+          "pnlAbsolute": 644.52,
+          "pnlPercentage": 165.25
         },
         {
           "address": "0x1c4ae64191145f42801660479bf08d5ea5021e95",
           "nftCount": 25,
           "isContract": false,
-          "tokenValueUsd": 51581.64,
-          "nftValueUsd": 1735.55,
-          "totalValueUsd": 53317.19,
-          "pnlAbsolute": 112.15,
-          "pnlPercentage": 0.21
+          "tokenValueUsd": 50142.24,
+          "nftValueUsd": 1785.04,
+          "totalValueUsd": 51927.28,
+          "pnlAbsolute": -1447.07,
+          "pnlPercentage": -2.71
         },
         {
           "address": "0x99d06615d7b4d93cdfff30e3b50adab9f0e228d3",
           "nftCount": 22,
           "isContract": false,
-          "tokenValueUsd": 1362.83,
-          "nftValueUsd": 2432.44,
-          "totalValueUsd": 3795.27,
-          "pnlAbsolute": -920.29,
-          "pnlPercentage": -19.52
+          "tokenValueUsd": 1364.59,
+          "nftValueUsd": 2475.68,
+          "totalValueUsd": 3840.27,
+          "pnlAbsolute": -1107.11,
+          "pnlPercentage": -22.38
         },
         {
           "address": "0xf0685a9096159798ab0998b1d775d9ed95d5845e",
           "nftCount": 21,
           "isContract": false,
           "tokenValueUsd": 1.27,
-          "nftValueUsd": 525.06,
-          "totalValueUsd": 526.34,
-          "pnlAbsolute": 521.56,
-          "pnlPercentage": 10928.19
+          "nftValueUsd": 533.65,
+          "totalValueUsd": 534.92,
+          "pnlAbsolute": 505.58,
+          "pnlPercentage": 1723.27
         },
         {
           "address": "0xdb363862e5e73a7ce226730de475c507547cd4c2",
           "nftCount": 21,
           "isContract": true,
-          "tokenValueUsd": 29.96,
-          "nftValueUsd": 11809.33,
-          "totalValueUsd": 11839.28,
-          "pnlAbsolute": -823.31,
-          "pnlPercentage": -6.5
+          "tokenValueUsd": 25.46,
+          "nftValueUsd": 11619.3,
+          "totalValueUsd": 11644.76,
+          "pnlAbsolute": -921.32,
+          "pnlPercentage": -7.33
         },
         {
           "address": "0x245dd8a76fae69f476589d342e88c60f11c345a8",
           "nftCount": 21,
           "isContract": false,
           "tokenValueUsd": 94.62,
-          "nftValueUsd": 958.95,
-          "totalValueUsd": 1053.57,
-          "pnlAbsolute": 19.15,
-          "pnlPercentage": 1.85
+          "nftValueUsd": 989.93,
+          "totalValueUsd": 1084.56,
+          "pnlAbsolute": -50.75,
+          "pnlPercentage": -4.47
         },
         {
           "address": "0x1e8c05fa1e52adcb0b66808fa7b843d106f506d5",
           "nftCount": 20,
           "isContract": false,
-          "tokenValueUsd": 21.09,
-          "nftValueUsd": 500.67,
-          "totalValueUsd": 521.76,
-          "pnlAbsolute": -166.29,
-          "pnlPercentage": -24.17
+          "tokenValueUsd": 21.12,
+          "nftValueUsd": 508.84,
+          "totalValueUsd": 529.96,
+          "pnlAbsolute": 92.46,
+          "pnlPercentage": 21.13
         },
         {
           "address": "0x27e15abc9644c11bdad575748f7839e6783acdd5",
           "nftCount": 17,
           "isContract": false,
-          "tokenValueUsd": 128.26,
-          "nftValueUsd": 1756.04,
-          "totalValueUsd": 1884.3,
-          "pnlAbsolute": 614.11,
-          "pnlPercentage": 48.35
+          "tokenValueUsd": 128.42,
+          "nftValueUsd": 1776.01,
+          "totalValueUsd": 1904.43,
+          "pnlAbsolute": 570.57,
+          "pnlPercentage": 42.78
         }
       ],
       "contractAddress": "0xAe42D5511886590538160A3cbDb91388cf1e76A3",
       "blockscoutUrl": "https://robinhoodchain.blockscout.com/token/0xAe42D5511886590538160A3cbDb91388cf1e76A3?tab=holders",
-      "lastUpdatedISO": "2026-08-16T14:00:36.405372+00:00"
+      "lastUpdatedISO": "2026-08-16T14:27:57.081491+00:00"
     }
   ]
 }
