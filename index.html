@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,7 +79,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple
 </head>
 <body>
 
-<div id="app"><div class="loading"><div class="loading-dot"></div>Загрузка данных…</div></div>
+<div id="app"><div class="loading"><div class="loading-dot"></div>Loading data…</div></div>
 
 <script>
 const fmtUsd = n => n>=1e6?`$${(n/1e6).toFixed(2)}M`:n>=1e3?`$${(n/1e3).toFixed(1)}K`:`$${n.toFixed(2)}`;
@@ -190,13 +190,13 @@ async function main() {
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     d = await r.json();
   } catch(e) {
-    document.getElementById('app').innerHTML = `<div class="error"><h2>Не удалось загрузить данные</h2><p>${e.message}</p></div>`;
+    document.getElementById('app').innerHTML = `<div class="error"><h2>Failed to load data</h2><p>${e.message}</p></div>`;
     return;
   }
 
   const cols = d.collections;
   if (!cols || cols.length === 0) {
-    document.getElementById('app').innerHTML = '<div class="error"><h2>Недостаточно данных</h2></div>';
+    document.getElementById('app').innerHTML = '<div class="error"><h2>Not enough data</h2></div>';
     return;
   }
 
@@ -235,11 +235,11 @@ async function main() {
     <div class="header-meta"><span>supply ${fmtNum(c.total_supply)}</span><span>·</span><span>${c.unique_holders} holders</span></div>
   </div>
   <div class="card-grid">
-    <div class="metric-card"><div class="metric-label">Уникальные холдеры</div><div class="metric-value">${fmtNum(c.unique_holders)}</div><div class="metric-sub"><span>supply ${fmtNum(c.total_supply)}</span><span>·</span><span>${uniqPct}% уникальных</span></div></div>
-    <div class="metric-card"><div class="metric-label">Флор коллекции</div><div class="metric-value">Ξ ${fmtEth(c.stats.floorPrice)}</div><div class="metric-sub"><span>≈ ${fmtUsd(floorUsd)}</span></div></div>
-    <div class="metric-card"><div class="metric-label">Объём продаж (всего)</div><div class="metric-value">Ξ ${fmtEth(c.stats.volume)}</div><div class="metric-sub"><span>≈ ${fmtUsd(c.stats.volume*d.ethPriceUsd)}</span></div></div>
-    <div class="metric-card"><div class="metric-label">Продажи (кол-во)</div><div class="metric-value">${fmtNum(c.stats.sales)}</div><div class="metric-sub">${oneDay?`<span class="delta-up">24ч: ${oneDay.sales}</span>`:''}${sevenDay?`<span>7д: ${sevenDay.sales}</span>`:''}</div></div>
-    <div class="metric-card"><div class="metric-label">Листинги (активные)</div><div class="metric-value">${fmtNum(c.listings.count)}</div><div class="metric-sub"><span>${listedPct.toFixed(1)}% supply</span></div></div>
+    <div class="metric-card"><div class="metric-label">Unique holders</div><div class="metric-value">${fmtNum(c.unique_holders)}</div><div class="metric-sub"><span>supply ${fmtNum(c.total_supply)}</span><span>·</span><span>${uniqPct}% unique</span></div></div>
+    <div class="metric-card"><div class="metric-label">Floor price</div><div class="metric-value">Ξ ${fmtEth(c.stats.floorPrice)}</div><div class="metric-sub"><span>≈ ${fmtUsd(floorUsd)}</span></div></div>
+    <div class="metric-card"><div class="metric-label">Total volume</div><div class="metric-value">Ξ ${fmtEth(c.stats.volume)}</div><div class="metric-sub"><span>≈ ${fmtUsd(c.stats.volume*d.ethPriceUsd)}</span></div></div>
+    <div class="metric-card"><div class="metric-label">Sales count</div><div class="metric-value">${fmtNum(c.stats.sales)}</div><div class="metric-sub">${oneDay?`<span class="delta-up">24h: ${oneDay.sales}</span>`:''}${sevenDay?`<span>7d: ${sevenDay.sales}</span>`:''}</div></div>
+    <div class="metric-card"><div class="metric-label">Active listings</div><div class="metric-value">${fmtNum(c.listings.count)}</div><div class="metric-sub"><span>${listedPct.toFixed(1)}% supply</span></div></div>
   </div>
   ${renderWhales(c)}
 </section>`;
@@ -247,7 +247,7 @@ async function main() {
 
   html += `
 <footer class="footer"><div class="container" style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:12px">
-  <span>Данные: OpenSea API v2 · Blockscout Robinhood · обновление каждые 6ч</span>
+  <span>Data: OpenSea API v2 · Blockscout Robinhood · refresh every 6h</span>
   <span><a href="https://github.com/manfromhellxbt/kitty-pvp-dashboard" target="_blank" rel="noopener">GitHub</a> · <a href="https://robinhoodchain.blockscout.com" target="_blank" rel="noopener">Blockscout</a></span>
 </div></footer>`;
 
@@ -271,9 +271,9 @@ function renderWhales(c) {
   }).join('');
   return `
 <div class="whales-section">
-  <div class="whales-header"><div class="whales-title"><span class="v-badge" style="font-size:11px;padding:2px 6px">${c.version}</span>Топ холдеры (киты)</div><div class="whales-note">портфолио через OpenSea · chain: robinhood · топ-15</div></div>
+  <div class="whales-header"><div class="whales-title"><span class="v-badge" style="font-size:11px;padding:2px 6px">${c.version}</span>Top holders</div><div class="whales-note">portfolio via OpenSea · chain: robinhood · top 15</div></div>
   <div style="overflow-x:auto"><table class="table">
-    <thead><tr><th>#</th><th>Адрес</th><th style="text-align:right">NFT</th><th style="text-align:right">Наличные ($)</th><th style="text-align:right">NFT ($)</th><th style="text-align:right">Всего ($)</th></tr></thead>
+    <thead><tr><th>#</th><th>Address</th><th style="text-align:right">NFT</th><th style="text-align:right">Cash ($)</th><th style="text-align:right">NFT ($)</th><th style="text-align:right">Total ($)</th></tr></thead>
     <tbody>${rows}</tbody>
   </table></div>
 </div>`;
