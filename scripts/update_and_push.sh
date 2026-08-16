@@ -6,9 +6,11 @@ REPO="/opt/data/kitty-pvp-dashboard"
 LOG="/opt/data/logs/kitty-pvp-update.log"
 LOCK="/tmp/kitty-pvp-update.lock"
 KEY_FILE="/opt/data/config/opensea_key.txt"
+DUNE_KEY_FILE="/opt/data/config/dune_key.txt"
 export HOME=/opt/data
 export GIT_SSH_COMMAND="ssh -i /opt/data/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=no"
 export OPENSEA_API_KEY="$(cat "$KEY_FILE" 2>/dev/null || true)"
+export DUNE_API_KEY="$(cat "$DUNE_KEY_FILE" 2>/dev/null || true)"
 
 mkdir -p "$(dirname "$LOG")"
 

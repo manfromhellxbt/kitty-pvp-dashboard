@@ -1,26 +1,48 @@
 #!/usr/bin/env python3
 """
 Kitty PVP Dashboard — data fetcher (runs on VPS via cron every 1h).
-Collects data from OpenSea API v2 + Blockscout (Robinhood chain),
-writes public/data.json for the static frontend.
+Collects data from OpenSea API v2 + Blockscout + Dune (Robinhood),
+writes data.json for the static frontend.
 
-NO secrets leave this script. OpenSea key is read from env or config file.
+NO secrets leave this script. Keys are read from env or config files.
 The output data.json contains only aggregated public metrics.
 """
 import json
 import os
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
-OPENSEA_KEY = os.environ.get("OPENSEA_API_KEY") or open("/opt/data/config/opensea_key.txt").read().strip()
+REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+
+def _read_secret(env_name, *paths):
+    val = os.environ.get(env_name)
+    if val:
+        return val.strip()
+    for p in paths:
+        try:
+            return open(p).read().strip()
+        except OSError:
+            continue
+    return None
+
+
+OPENSEA_KEY = _read_secret("OPENSEA_API_KEY", "/opt/data/config/opensea_key.txt")
+DUNE_KEY = _read_secret("DUNE_API_KEY", "/opt/data/config/dune_key.txt")
 BLOCKSCOUT = "https://robinhoodchain.blockscout.com/api/v2"
 OPENSEA = "https://api.opensea.io/api/v2"
+DUNE_API = "https://api.dune.com/api/v1"
+DUNE_TRANSFERS_Q = 8350208
+DUNE_SALES_Q = 8350211
 ETH_PRICE_FALLBACK = 1879.0
 TOP_HOLDERS_LIMIT = 15
 SALES_PAGE_LIMIT = 20
+DUNE_SINCE_DEFAULT = "2025-01-01"
+ZERO = "0x0000000000000000000000000000000000000000"
 _sales_cache = {}
 
 COLLECTIONS = [
@@ -156,8 +178,270 @@ def fetch_account_sales(address):
     return evs, capped
 
 
-def holder_trade_pnl(address, contract, nft_count, floor_eth):
-    """OpenSea trades only. Transfers/mints have no cost basis."""
+def _hex(val):
+    if val is None:
+        return ""
+    s = str(val).strip().lower()
+    if s.startswith("\\x"):
+        s = "0x" + s[2:]
+    if s.startswith("0x"):
+        return s
+    if all(c in "0123456789abcdef" for c in s) and len(s) in (40, 64):
+        return "0x" + s
+    return s
+
+
+def _token_id(val):
+    if val is None:
+        return ""
+    return str(int(val)) if str(val).isdigit() else str(val)
+
+
+def _num(val):
+    if val is None or val == "":
+        return 0.0
+    try:
+        return float(val)
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def sale_unit_price(row, eth_usd):
+    n = _num(row.get("nfts_in_tx")) or 1.0
+    priced = row.get("price_eth")
+    if priced not in (None, ""):
+        p = _num(priced)
+        if p > 0:
+            return p
+    usdg = _num(row.get("usdg_from_buyer"))
+    if usdg > 0 and eth_usd:
+        return (usdg / eth_usd) / n
+    return None
+
+
+def dune_headers():
+    if not DUNE_KEY:
+        raise RuntimeError("DUNE_API_KEY missing")
+    return {"X-DUNE-API-KEY": DUNE_KEY, "Content-Type": "application/json"}
+
+
+def dune_execute(query_id, since_date, performance="medium"):
+    body = json.dumps({
+        "performance": performance,
+        "query_parameters": {"since_date": since_date},
+    }).encode()
+    req = urllib.request.Request(
+        f"{DUNE_API}/query/{query_id}/execute",
+        data=body,
+        headers=dune_headers(),
+        method="POST",
+    )
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return json.loads(r.read().decode())
+
+
+def dune_results(execution_id, timeout=240):
+    deadline = time.time() + timeout
+    offset = 0
+    rows = []
+    meta = {}
+    while time.time() < deadline:
+        url = f"{DUNE_API}/execution/{execution_id}/results?limit=32000&offset={offset}"
+        req = urllib.request.Request(url, headers=dune_headers())
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                data = json.loads(r.read().decode())
+        except urllib.error.HTTPError as e:
+            if e.code in (404, 425):
+                time.sleep(2)
+                continue
+            raise
+        state = (data.get("state") or "").upper()
+        if "PENDING" in state or "EXECUTING" in state:
+            time.sleep(2)
+            continue
+        if "FAILED" in state or "CANCEL" in state:
+            raise RuntimeError(f"dune {execution_id} {state}: {data.get('error') or data}")
+        chunk = ((data.get("result") or {}).get("rows")) or data.get("rows") or []
+        rows.extend(chunk)
+        meta = data.get("result_metadata") or data.get("resultMetadata") or {}
+        nxt = data.get("next_offset")
+        if nxt is None or not chunk:
+            return rows, meta
+        offset = nxt
+    raise TimeoutError(f"dune execution {execution_id} timed out")
+
+
+def dune_cache_path():
+    return os.path.join(REPO_ROOT, ".cache", "dune_kitties.json")
+
+
+def load_dune_cache():
+    path = dune_cache_path()
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except Exception:
+        return {"transfers": [], "sales": [], "since": None}
+
+
+def save_dune_cache(cache):
+    path = dune_cache_path()
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    tmp = path + ".tmp"
+    with open(tmp, "w") as f:
+        json.dump(cache, f)
+    os.replace(tmp, path)
+
+
+def _row_key_transfer(r):
+    return (
+        _hex(r.get("tx_hash")),
+        int(r.get("evt_index") or 0),
+        _hex(r.get("contract_address")),
+        _token_id(r.get("token_id")),
+    )
+
+
+def _row_key_sale(r):
+    return (
+        _hex(r.get("tx_hash")),
+        _hex(r.get("contract_address")),
+        _token_id(r.get("token_id")),
+        _hex(r.get("buyer")),
+    )
+
+
+def merge_rows(old, new, keyfn):
+    idx = {keyfn(r): r for r in old}
+    for r in new:
+        idx[keyfn(r)] = r
+    return list(idx.values())
+
+
+def fetch_dune_events():
+    """Full history on first run, then overlap the last 2 days."""
+    if not DUNE_KEY:
+        raise RuntimeError("DUNE_API_KEY missing")
+    cache = load_dune_cache()
+    if cache.get("transfers"):
+        since = (datetime.now(timezone.utc) - timedelta(days=2)).strftime("%Y-%m-%d")
+    else:
+        since = DUNE_SINCE_DEFAULT
+    print(f"[info] dune fetch since {since} (cache transfers={len(cache.get('transfers') or [])})", file=sys.stderr)
+    t_ex = dune_execute(DUNE_TRANSFERS_Q, since)
+    s_ex = dune_execute(DUNE_SALES_Q, since)
+    transfers, _ = dune_results(t_ex["execution_id"])
+    sales, _ = dune_results(s_ex["execution_id"])
+    cache["transfers"] = merge_rows(cache.get("transfers") or [], transfers, _row_key_transfer)
+    cache["sales"] = merge_rows(cache.get("sales") or [], sales, _row_key_sale)
+    cache["since"] = since
+    cache["updatedAt"] = datetime.now(timezone.utc).isoformat()
+    save_dune_cache(cache)
+    print(
+        f"[info] dune cache transfers={len(cache['transfers'])} sales={len(cache['sales'])}",
+        file=sys.stderr,
+    )
+    return cache
+
+
+def holder_trade_pnl_dune(address, contract, nft_count, floor_eth, eth_usd, dune):
+    """Per-token cost basis from on-chain transfers + Seaport sales."""
+    addr = _hex(address)
+    contract = _hex(contract)
+    xfers = [
+        t for t in dune.get("transfers") or []
+        if _hex(t.get("contract_address")) == contract
+        and (_hex(t.get("from_address")) == addr or _hex(t.get("to_address")) == addr)
+    ]
+    xfers.sort(key=lambda t: (int(t.get("block_number") or 0), int(t.get("evt_index") or 0)))
+    sale_idx = {}
+    for s in dune.get("sales") or []:
+        if _hex(s.get("contract_address")) != contract:
+            continue
+        sale_idx[(_hex(s.get("tx_hash")), _token_id(s.get("token_id")))] = s
+
+    lots = {}
+    buy_prices = []
+    sell_legs = []
+    transfer_in = transfer_out = mints = 0
+    priced_buys = priced_sells = 0
+
+    for t in xfers:
+        tid = _token_id(t.get("token_id"))
+        tx = _hex(t.get("tx_hash"))
+        sale = sale_idx.get((tx, tid))
+        is_sale = sale is not None
+        price = sale_unit_price(sale, eth_usd) if sale else None
+        incoming = _hex(t.get("to_address")) == addr
+        outgoing = _hex(t.get("from_address")) == addr
+        is_mint = bool(t.get("is_mint")) or _hex(t.get("from_address")) == ZERO
+
+        if incoming:
+            if is_mint:
+                mints += 1
+                lots[tid] = {"cost": None, "via": "mint"}
+            elif is_sale:
+                buy_prices.append(price)
+                if price:
+                    priced_buys += 1
+                lots[tid] = {"cost": price, "via": "buy"}
+            else:
+                transfer_in += 1
+                lots[tid] = {"cost": None, "via": "transfer"}
+        if outgoing:
+            prev = lots.pop(tid, None)
+            if is_sale:
+                sell_legs.append({"price": price, "cost": (prev or {}).get("cost")})
+                if price:
+                    priced_sells += 1
+            else:
+                transfer_out += 1
+
+    spent = sum(p for p in buy_prices if p)
+    sold_eth = sum(s["price"] for s in sell_legs if s["price"])
+    held_costs = [v["cost"] for v in lots.values() if v.get("cost")]
+    hist_avg = (spent / priced_buys) if priced_buys else None
+    avg_buy = (sum(held_costs) / len(held_costs)) if held_costs else hist_avg
+
+    realized = 0.0
+    realized_n = 0
+    for s in sell_legs:
+        if s["price"] is not None and s["cost"] is not None:
+            realized += s["price"] - s["cost"]
+            realized_n += 1
+    unrealized = sum(floor_eth - c for c in held_costs) if floor_eth else 0.0
+    pnl = None
+    if held_costs or realized_n:
+        pnl = realized + unrealized
+
+    vs_floor = dd = None
+    if avg_buy and avg_buy > 0 and floor_eth:
+        vs_floor = (floor_eth - avg_buy) / avg_buy * 100.0
+        dd = vs_floor if vs_floor < 0 else 0.0
+
+    return {
+        "buyCount": len(buy_prices),
+        "sellCount": len(sell_legs),
+        "transferCount": transfer_in,
+        "mintCount": mints,
+        "spentEth": round(spent, 6),
+        "soldEth": round(sold_eth, 6),
+        "avgBuyEth": round(avg_buy, 6) if avg_buy is not None else None,
+        "avgSellEth": round(sold_eth / priced_sells, 6) if priced_sells else None,
+        "pnlEth": round(pnl, 6) if pnl is not None else None,
+        "vsFloorPct": round(vs_floor, 1) if vs_floor is not None else None,
+        "drawdownPct": round(dd, 1) if dd is not None else None,
+        "pricedHeld": len(held_costs),
+        "pricedBuys": priced_buys,
+        "source": "dune",
+        "capped": False,
+        "coverage": round((len(held_costs) / nft_count), 2) if nft_count else 0.0,
+    }
+
+
+def holder_trade_pnl_opensea(address, contract, nft_count, floor_eth):
+    """Fallback: OpenSea trades only. Transfers/mints have no cost basis."""
     sales, capped = fetch_account_sales(address)
     contract = (contract or "").lower()
     addr = address.lower()
@@ -185,6 +469,7 @@ def holder_trade_pnl(address, contract, nft_count, floor_eth):
     return {
         "buyCount": buys,
         "sellCount": sells,
+        "transferCount": max(0, (nft_count or 0) + sells - buys),
         "spentEth": round(spent, 6),
         "soldEth": round(sold, 6),
         "avgBuyEth": round(avg_buy, 6) if avg_buy is not None else None,
@@ -194,6 +479,7 @@ def holder_trade_pnl(address, contract, nft_count, floor_eth):
         "drawdownPct": round(dd, 1) if dd is not None else None,
         "coverage": round(coverage, 2),
         "capped": capped,
+        "source": "opensea",
     }
 
 
@@ -292,7 +578,14 @@ def load_prev_top(slug):
 
 
 def fetch_all():
+    if not OPENSEA_KEY:
+        raise RuntimeError("OPENSEA_API_KEY missing")
     eth_price = fetch_eth_price()
+    dune = None
+    try:
+        dune = fetch_dune_events()
+    except Exception as e:
+        print(f"[warn] dune unavailable, falling back to OpenSea trades: {e}", file=sys.stderr)
     collections = []
     for col in COLLECTIONS:
         print(f"[info] fetching {col['slug']}...", file=sys.stderr)
@@ -313,9 +606,14 @@ def fetch_all():
         floor = float((stats or {}).get("floorPrice") or 0)
         for h in top_slice:
             h.update(fetch_portfolio(h["address"]))
-            h["pnl"] = holder_trade_pnl(
-                h["address"], col["address"], h.get("nftCount") or 0, floor
-            )
+            if dune:
+                h["pnl"] = holder_trade_pnl_dune(
+                    h["address"], col["address"], h.get("nftCount") or 0, floor, eth_price, dune
+                )
+            else:
+                h["pnl"] = holder_trade_pnl_opensea(
+                    h["address"], col["address"], h.get("nftCount") or 0, floor
+                )
 
         listings = fetch_listings(col["slug"])
 

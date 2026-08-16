@@ -264,7 +264,7 @@ async function main() {
 
   html += `
 <footer class="footer"><div class="container" style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:12px">
-  <span>Data: OpenSea API v2 · Blockscout Robinhood · refresh every 1h</span>
+  <span>Data: OpenSea · Dune · Blockscout · refresh every 1h</span>
   <span><a href="https://github.com/manfromhellxbt/kitty-pvp-dashboard" target="_blank" rel="noopener">GitHub</a> · <a href="https://robinhoodchain.blockscout.com" target="_blank" rel="noopener">Blockscout</a></span>
 </div></footer>`;
 
@@ -276,20 +276,24 @@ function tradeCell(count, eth) {
   return `${count} · Ξ ${fmtEth(eth || 0)}`;
 }
 
+function na(text) {
+  return `<span style="color:var(--text4)">${text}</span>`;
+}
+
 function renderWhales(c) {
   if (!c.top_holders || c.top_holders.length === 0) return '';
   const rows = c.top_holders.map((h,i) => {
     const p = h.pnl || {};
     const boughtN = p.buyCount || 0;
     const soldN = p.sellCount || 0;
-    const xferN = Math.max(0, (h.nftCount || 0) + soldN - boughtN);
+    const xferN = p.transferCount != null ? p.transferCount : Math.max(0, (h.nftCount || 0) + soldN - boughtN);
     const net = fmtUsd(h.totalValueUsd || 0);
-    const avgBuy = p.avgBuyEth != null ? `Ξ ${fmtEth(p.avgBuyEth)}` : '0';
+    const avgBuy = p.avgBuyEth != null ? `Ξ ${fmtEth(p.avgBuyEth)}` : na('n/a');
     const pnlCls = p.pnlEth == null ? '' : (p.pnlEth >= 0 ? 'delta-up' : 'delta-down');
-    const pnl = p.pnlEth == null ? '0' : `${p.pnlEth>=0?'+':''}Ξ ${fmtEth(Math.abs(p.pnlEth))}`;
+    const pnl = p.pnlEth == null ? na('n/a') : `${p.pnlEth>=0?'+':''}Ξ ${fmtEth(Math.abs(p.pnlEth))}`;
     const vs = p.vsFloorPct;
     const vsCls = vs == null ? '' : (vs >= 0 ? 'delta-up' : 'delta-down');
-    const vsTxt = vs == null ? '0%' : `${vs>0?'+':''}${vs.toFixed(1)}%${p.coverage!=null && p.coverage<0.5?' ~':''}`;
+    const vsTxt = vs == null ? na('n/a') : `${vs>0?'+':''}${vs.toFixed(1)}%`;
     return `<tr>
       <td style="color:var(--text4);font-family:'JetBrains Mono',monospace">${i+1}</td>
       <td class="addr-cell"><a href="https://opensea.io/${h.address}/portfolio" target="_blank" rel="noopener">${short(h.address)}${h.isContract?'<span class="contract-tag" style="margin-left:6px">contract</span>':''}</a></td>
@@ -305,7 +309,7 @@ function renderWhales(c) {
   }).join('');
   return `
 <div class="whales-section">
-  <div class="whales-header"><div class="whales-title"><span class="v-badge" style="font-size:11px;padding:2px 6px">${c.version}</span>Top holders</div><div class="whales-note">net worth = cash + NFTs · transferred = received minus OpenSea buys · P&L vs floor from OpenSea trades · top 15</div></div>
+  <div class="whales-header"><div class="whales-title"><span class="v-badge" style="font-size:11px;padding:2px 6px">${c.version}</span>Top holders</div><div class="whales-note">net worth = cash + NFTs · bought/sold = OpenSea (Seaport) · transferred = non-sale receives · avg buy / P&L = per-token cost, n/a if never bought · top 15</div></div>
   <div style="overflow-x:auto"><table class="table">
     <thead><tr>
       <th>#</th><th>Address</th>
