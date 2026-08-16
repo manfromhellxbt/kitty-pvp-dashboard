@@ -9,12 +9,12 @@ Live analytics dashboard for **Robinhood Kitties** NFT collections on the Robinh
 - [robinhood-kitties11](https://opensea.io/collection/robinhood-kitties11)
 
 ## Metrics shown
+- Comparison table V1 vs V2 (holders, supply, uniqueness, floor, median listing, volume/sales total + 24h/7d/30d, listings)
 - Unique holders (total count)
 - Top 15 whales — wallet cash + NFT portfolio value
 - Sales volume + sales count (total, 24h, 7d)
 - Active listings count + listing volume
 - Floor price
-- Side-by-side comparison of both collections
 
 ## Architecture
 

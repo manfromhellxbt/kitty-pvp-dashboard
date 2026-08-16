@@ -25,10 +25,15 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple
 .header-meta{font-size:13px;color:var(--text3);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .live-dot{display:inline-block;width:6px;height:6px;background:var(--emerald);border-radius:50%;margin-right:6px;animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.version-bar{display:flex;gap:8px;margin:32px 0 40px;flex-wrap:wrap}
-.version-pill{padding:10px 18px;border-radius:9999px;border:1px solid var(--border);background:rgba(255,255,255,.02);font-size:13px;color:var(--text3);display:flex;align-items:center;gap:8px;transition:all .15s}
-.version-pill .v-tag{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--accent);font-size:12px;padding:2px 8px;border-radius:4px;background:rgba(113,112,255,.1);border:1px solid rgba(113,112,255,.2)}
-.version-pill .v-count{font-family:'JetBrains Mono',monospace;color:var(--text);font-weight:500}
+.compare-section{background:rgba(255,255,255,.02);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden;margin:0 0 48px}
+.compare-header{padding:16px 20px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.compare-title{font-size:14px;font-weight:590;letter-spacing:-.01em}
+.compare-note{font-size:12px;color:var(--text3)}
+.compare-group td{background:rgba(255,255,255,.025);color:var(--text4);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;padding:10px 20px;border-bottom:1px solid var(--border-subtle)}
+.lead{color:var(--emerald);font-weight:500}
+.delta-up{color:var(--emerald)}.delta-down{color:var(--red)}.delta-flat{color:var(--text4)}
+.cell-main{display:block}
+.cell-sub{display:block;font-size:11px;color:var(--text4);font-weight:400;margin-top:2px}
 .collection-section{margin-bottom:48px}
 .collection-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border-subtle);flex-wrap:wrap;gap:8px}
 .collection-title{font-size:20px;font-weight:590;letter-spacing:-.02em;display:flex;align-items:center;gap:12px}
@@ -42,7 +47,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple
 .metric-value{font-size:24px;font-weight:500;color:var(--text);letter-spacing:-.02em;font-family:'JetBrains Mono',monospace;margin-bottom:6px}
 .metric-sub{font-size:12px;color:var(--text3);display:flex;gap:12px;flex-wrap:wrap}
 .metric-sub span{display:flex;align-items:center;gap:4px}
-.delta-up{color:var(--emerald)}.delta-down{color:var(--red)}
 .whales-section{background:rgba(255,255,255,.02);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden}
 .whales-header{padding:16px 20px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
 .whales-title{font-size:14px;font-weight:590;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
@@ -51,7 +55,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple
 .table th{text-align:left;padding:10px 20px;font-size:11px;font-weight:500;color:var(--text4);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border-subtle);background:rgba(255,255,255,.01);white-space:nowrap}
 .table td{padding:12px 20px;border-bottom:1px solid var(--border-subtle);color:var(--text2)}
 .table tr:last-child td{border-bottom:none}
-.table tr:hover td{background:rgba(255,255,255,.02)}
+.table tbody tr:hover td{background:rgba(255,255,255,.02)}
+.table tbody tr.compare-group:hover td{background:rgba(255,255,255,.025)}
 .addr-cell{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text)}
 .addr-cell a{color:var(--text);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
 .addr-cell a:hover{color:var(--accent-hover)}
@@ -77,6 +82,102 @@ const fmtUsd = n => n>=1e6?`$${(n/1e6).toFixed(2)}M`:n>=1e3?`$${(n/1e3).toFixed(
 const fmtEth = n => n>=1000?`${n.toFixed(0)}`:n>=1?`${n.toFixed(2)}`:`${n.toFixed(3)}`;
 const fmtNum = n => n>=1e6?`${(n/1e6).toFixed(1)}M`:n>=1e3?`${(n/1e3).toFixed(1)}K`:n.toLocaleString('en-US');
 const short = a => `<span>${a.slice(0,6)}</span><span style="color:var(--text4)">…</span><span>${a.slice(-4)}</span>`;
+const intervalOf = (c, name) => (c.stats.intervals||[]).find(i => i.interval === name) || {volume:0, sales:0};
+
+function fmtDelta(a, b) {
+  if (a == null || b == null || !isFinite(a) || !isFinite(b) || a === 0) return {text:'—', cls:'delta-flat'};
+  const p = (b - a) / Math.abs(a) * 100;
+  if (Math.abs(p) < 0.05) return {text:'≈0%', cls:'delta-flat'};
+  const sign = p > 0 ? '+' : '';
+  return {text:`${sign}${p.toFixed(0)}%`, cls: p > 0 ? 'delta-up' : 'delta-down'};
+}
+
+function leadClass(a, b, better) {
+  if (!better || a == null || b == null || a === b) return ['', ''];
+  if (better === 'max') return a > b ? ['lead', ''] : ['', 'lead'];
+  if (better === 'min') return a < b ? ['lead', ''] : ['', 'lead'];
+  return ['', ''];
+}
+
+function renderCompare(cols, ethUsd) {
+  const v1 = cols.find(c => c.version === 'V1') || cols[0];
+  const v2 = cols.find(c => c.version === 'V2') || cols[1];
+  if (!v1 || !v2) return '';
+
+  const uniq = c => c.total_supply ? c.unique_holders / c.total_supply * 100 : 0;
+  const listed = c => c.total_supply ? c.listings.count / c.total_supply * 100 : 0;
+  const groups = [
+    {
+      title: 'Коллекция',
+      rows: [
+        {label:'Холдеры', a:v1.unique_holders, b:v2.unique_holders, fmt:n => fmtNum(n), better:'max'},
+        {label:'Supply', a:v1.total_supply, b:v2.total_supply, fmt:n => fmtNum(n)},
+        {label:'Уникальность', a:uniq(v1), b:uniq(v2), fmt:n => `${n.toFixed(1)}%`, better:'max'},
+      ]
+    },
+    {
+      title: 'Цена',
+      rows: [
+        {label:'Флор', a:v1.stats.floorPrice, b:v2.stats.floorPrice, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'min'},
+        {label:'Медиана листинга', a:v1.listings.medianPriceEth, b:v2.listings.medianPriceEth, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'min'},
+      ]
+    },
+    {
+      title: 'Продажи',
+      rows: [
+        {label:'Объём всего', a:v1.stats.volume, b:v2.stats.volume, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
+        {label:'Продажи всего', a:v1.stats.sales, b:v2.stats.sales, fmt:n => fmtNum(n), better:'max'},
+        {label:'Объём 24ч', a:intervalOf(v1,'one_day').volume, b:intervalOf(v2,'one_day').volume, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
+        {label:'Продажи 24ч', a:intervalOf(v1,'one_day').sales, b:intervalOf(v2,'one_day').sales, fmt:n => fmtNum(n), better:'max'},
+        {label:'Объём 7д', a:intervalOf(v1,'seven_day').volume, b:intervalOf(v2,'seven_day').volume, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
+        {label:'Продажи 7д', a:intervalOf(v1,'seven_day').sales, b:intervalOf(v2,'seven_day').sales, fmt:n => fmtNum(n), better:'max'},
+        {label:'Объём 30д', a:intervalOf(v1,'thirty_day').volume, b:intervalOf(v2,'thirty_day').volume, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
+        {label:'Продажи 30д', a:intervalOf(v1,'thirty_day').sales, b:intervalOf(v2,'thirty_day').sales, fmt:n => fmtNum(n), better:'max'},
+      ]
+    },
+    {
+      title: 'Рынок',
+      rows: [
+        {label:'Активные листинги', a:v1.listings.count, b:v2.listings.count, fmt:n => fmtNum(n), better:'max'},
+        {label:'% supply в листинге', a:listed(v1), b:listed(v2), fmt:n => `${n.toFixed(1)}%`},
+        {label:'Объём листингов', a:v1.listings.totalVolumeEth, b:v2.listings.totalVolumeEth, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
+      ]
+    }
+  ];
+
+  const body = groups.map(g => {
+    const head = `<tr class="compare-group"><td colspan="4">${g.title}</td></tr>`;
+    const rows = g.rows.map(r => {
+      const [ca, cb] = leadClass(r.a, r.b, r.better);
+      const d = fmtDelta(r.a, r.b);
+      const cell = (n, cls) => `<td class="num-cell ${cls}"><span class="cell-main">${r.fmt(n)}</span>${r.sub?`<span class="cell-sub">${r.sub(n)}</span>`:''}</td>`;
+      return `<tr>
+        <td>${r.label}</td>
+        ${cell(r.a, ca)}
+        ${cell(r.b, cb)}
+        <td class="num-cell ${d.cls}">${d.text}</td>
+      </tr>`;
+    }).join('');
+    return head + rows;
+  }).join('');
+
+  return `
+<div class="compare-section">
+  <div class="compare-header">
+    <div class="compare-title">V1 vs V2</div>
+    <div class="compare-note">сравнение по актуальным метрикам · Δ = V2 относительно V1</div>
+  </div>
+  <div style="overflow-x:auto"><table class="table">
+    <thead><tr>
+      <th>Метрика</th>
+      <th style="text-align:right"><span class="v-badge" style="font-size:11px;padding:2px 6px">V1</span> ${v1.name}</th>
+      <th style="text-align:right"><span class="v-badge" style="font-size:11px;padding:2px 6px">V2</span> ${v2.name}</th>
+      <th style="text-align:right">Δ</th>
+    </tr></thead>
+    <tbody>${body}</tbody>
+  </table></div>
+</div>`;
+}
 
 async function main() {
   let d;
@@ -109,9 +210,7 @@ async function main() {
 </div></div>
 
 <main class="container" style="padding-top:32px">
-  <div class="version-bar">
-    ${cols.map(c => `<div class="version-pill"><span class="v-tag">${c.version}</span> <span>${c.name}</span> <span class="v-count">${fmtNum(c.unique_holders)} holders</span></div>`).join('')}
-  </div>
+  ${renderCompare(cols, d.ethPriceUsd)}
 `;
 
   for (const c of cols) {
