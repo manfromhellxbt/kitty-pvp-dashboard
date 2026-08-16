@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-16T15:35:17.240184+00:00",
+  "generatedAt": "2026-08-16T15:37:01.354041+00:00",
   "ethPriceUsd": 1882.07,
   "collections": [
     {
@@ -44,126 +44,126 @@
           "address": "0xca88c31ad2878142bce521c0f8bbabebbc685dd9",
           "nftCount": 95,
           "isContract": true,
-          "tokenValueUsd": 2993.78,
-          "nftValueUsd": 4199.74,
-          "totalValueUsd": 7193.52
+          "tokenValueUsd": 2994.29,
+          "nftValueUsd": 4204.35,
+          "totalValueUsd": 7198.64
         },
         {
           "address": "0xc630c5e9b6117c88dd6cd6fcc7418e2039727136",
           "nftCount": 90,
           "isContract": false,
-          "tokenValueUsd": 719.03,
-          "nftValueUsd": 9101.66,
-          "totalValueUsd": 9820.69
+          "tokenValueUsd": 713.14,
+          "nftValueUsd": 9193.37,
+          "totalValueUsd": 9906.51
         },
         {
           "address": "0x53d4e41900decf004ebe9cefa0396dac1257ff30",
           "nftCount": 60,
           "isContract": false,
-          "tokenValueUsd": 4154.89,
-          "nftValueUsd": 1610.75,
-          "totalValueUsd": 5765.64
+          "tokenValueUsd": 4155.33,
+          "nftValueUsd": 1610.92,
+          "totalValueUsd": 5766.25
         },
         {
           "address": "0x1d915159aeee1c9d71b4be758301938b26be0966",
           "nftCount": 51,
           "isContract": false,
-          "tokenValueUsd": 228.55,
-          "nftValueUsd": 3226.99,
-          "totalValueUsd": 3455.55
+          "tokenValueUsd": 228.45,
+          "nftValueUsd": 3161.67,
+          "totalValueUsd": 3390.12
         },
         {
           "address": "0x18f0460e495d596f8226491a04761e12ea0f0748",
           "nftCount": 48,
           "isContract": false,
-          "tokenValueUsd": 687.01,
-          "nftValueUsd": 993.99,
-          "totalValueUsd": 1681.0
+          "tokenValueUsd": 687.05,
+          "nftValueUsd": 994.04,
+          "totalValueUsd": 1681.1
         },
         {
           "address": "0xedfaea2d08fcd8e814c480d3a55b49f9550c9df6",
           "nftCount": 33,
           "isContract": false,
           "tokenValueUsd": 124.18,
-          "nftValueUsd": 2046.64,
-          "totalValueUsd": 2170.81
+          "nftValueUsd": 2046.76,
+          "totalValueUsd": 2170.94
         },
         {
           "address": "0x4f50f3f6c3c1094dbebcf02be8b0fa976ff6cfe5",
           "nftCount": 32,
           "isContract": false,
-          "tokenValueUsd": 367.74,
-          "nftValueUsd": 1591.06,
-          "totalValueUsd": 1958.79
+          "tokenValueUsd": 367.68,
+          "nftValueUsd": 1592.1,
+          "totalValueUsd": 1959.77
         },
         {
           "address": "0x3b970a579dd81c3638731a32907ee7b818f7ed56",
           "nftCount": 27,
           "isContract": false,
-          "tokenValueUsd": 250.43,
-          "nftValueUsd": 717.25,
-          "totalValueUsd": 967.68
+          "tokenValueUsd": 250.44,
+          "nftValueUsd": 717.29,
+          "totalValueUsd": 967.73
         },
         {
           "address": "0x1c4ae64191145f42801660479bf08d5ea5021e95",
           "nftCount": 25,
           "isContract": false,
-          "tokenValueUsd": 50889.48,
-          "nftValueUsd": 1633.68,
-          "totalValueUsd": 52523.15
+          "tokenValueUsd": 50889.66,
+          "nftValueUsd": 1633.77,
+          "totalValueUsd": 52523.44
         },
         {
           "address": "0x1e8c05fa1e52adcb0b66808fa7b843d106f506d5",
           "nftCount": 24,
           "isContract": false,
           "tokenValueUsd": 24.32,
-          "nftValueUsd": 563.28,
-          "totalValueUsd": 587.6
+          "nftValueUsd": 563.32,
+          "totalValueUsd": 587.64
         },
         {
           "address": "0x99d06615d7b4d93cdfff30e3b50adab9f0e228d3",
           "nftCount": 22,
           "isContract": false,
-          "tokenValueUsd": 2334.12,
-          "nftValueUsd": 2845.11,
-          "totalValueUsd": 5179.23
+          "tokenValueUsd": 2334.25,
+          "nftValueUsd": 2845.29,
+          "totalValueUsd": 5179.53
         },
         {
           "address": "0xf0685a9096159798ab0998b1d775d9ed95d5845e",
           "nftCount": 21,
           "isContract": false,
           "tokenValueUsd": 6.9,
-          "nftValueUsd": 434.87,
-          "totalValueUsd": 441.77
+          "nftValueUsd": 434.89,
+          "totalValueUsd": 441.79
         },
         {
           "address": "0xdb363862e5e73a7ce226730de475c507547cd4c2",
           "nftCount": 21,
           "isContract": true,
           "tokenValueUsd": 32.87,
-          "nftValueUsd": 13097.1,
-          "totalValueUsd": 13129.98
+          "nftValueUsd": 13129.85,
+          "totalValueUsd": 13162.72
         },
         {
           "address": "0x245dd8a76fae69f476589d342e88c60f11c345a8",
           "nftCount": 21,
           "isContract": false,
-          "tokenValueUsd": 100.47,
-          "nftValueUsd": 895.91,
-          "totalValueUsd": 996.38
+          "tokenValueUsd": 100.48,
+          "nftValueUsd": 895.95,
+          "totalValueUsd": 996.43
         },
         {
           "address": "0x117337b4a2ce4998d3c5ee0d442ac0643fde0c11",
           "nftCount": 16,
           "isContract": false,
-          "tokenValueUsd": 22129.51,
-          "nftValueUsd": 4330.6,
-          "totalValueUsd": 26460.11
+          "tokenValueUsd": 22130.04,
+          "nftValueUsd": 4346.1,
+          "totalValueUsd": 26476.14
         }
       ],
       "contract_address": "0xAe42D5511886590538160A3cbDb91388cf1e76A3",
       "blockscout_url": "https://robinhoodchain.blockscout.com/token/0xAe42D5511886590538160A3cbDb91388cf1e76A3?tab=holders",
-      "last_updated_iso": "2026-08-16T15:35:14.634145+00:00"
+      "last_updated_iso": "2026-08-16T15:36:52.021471+00:00"
     },
     {
       "slug": "robinhood-kitties",
@@ -176,7 +176,7 @@
         "volume": 89.46667035732418,
         "sales": 3382,
         "numOwners": 621,
-        "floorPrice": 0.0349758,
+        "floorPrice": 0.034974999998,
         "floorPriceSymbol": "ETH",
         "intervals": [
           {
@@ -198,14 +198,135 @@
       },
       "listings": {
         "count": 314,
-        "totalVolumeEth": 207.5264,
+        "totalVolumeEth": 207.5034,
         "floorFromListings": 0.035,
         "medianPriceEth": 0.188
       },
-      "top_holders": [],
+      "top_holders": [
+        {
+          "address": "0x117337b4a2ce4998d3c5ee0d442ac0643fde0c11",
+          "nftCount": 80,
+          "isContract": false,
+          "tokenValueUsd": 22130.04,
+          "nftValueUsd": 4346.1,
+          "totalValueUsd": 26476.14
+        },
+        {
+          "address": "0xea8a5b58fbae1ff68cb1a83a4aac24a5e6713bc0",
+          "nftCount": 52,
+          "isContract": false,
+          "tokenValueUsd": 9916.17,
+          "nftValueUsd": 2789.71,
+          "totalValueUsd": 12705.88
+        },
+        {
+          "address": "0x510dcb4deedf12e89b156d11b990752eb7653e66",
+          "nftCount": 44,
+          "isContract": false,
+          "tokenValueUsd": 3104.63,
+          "nftValueUsd": 2203.45,
+          "totalValueUsd": 5308.09
+        },
+        {
+          "address": "0x32be5ddfca516f5ad4ce4a0346e87f5a596581fc",
+          "nftCount": 31,
+          "isContract": false,
+          "tokenValueUsd": 3786.42,
+          "nftValueUsd": 1552.43,
+          "totalValueUsd": 5338.86
+        },
+        {
+          "address": "0x1ed3f00fa2ca1d053b418e57bdafaa435c7be19a",
+          "nftCount": 31,
+          "isContract": false,
+          "tokenValueUsd": 184.47,
+          "nftValueUsd": 1560.53,
+          "totalValueUsd": 1745.0
+        },
+        {
+          "address": "0xf478f82889986937bf446f53d6b6a4c54163f90c",
+          "nftCount": 30,
+          "isContract": false,
+          "tokenValueUsd": 193668.1,
+          "nftValueUsd": 22527.61,
+          "totalValueUsd": 216195.71
+        },
+        {
+          "address": "0x78b8256436ff280f6cace8bd9491c033b6e95850",
+          "nftCount": 26,
+          "isContract": false,
+          "tokenValueUsd": 22.16,
+          "nftValueUsd": 1421.4,
+          "totalValueUsd": 1443.56
+        },
+        {
+          "address": "0x514d1105c57fbf143ee128ef18aa430facda2151",
+          "nftCount": 26,
+          "isContract": false,
+          "tokenValueUsd": 439.95,
+          "nftValueUsd": 10172.16,
+          "totalValueUsd": 10612.11
+        },
+        {
+          "address": "0xca88c31ad2878142bce521c0f8bbabebbc685dd9",
+          "nftCount": 24,
+          "isContract": true,
+          "tokenValueUsd": 2994.29,
+          "nftValueUsd": 4204.35,
+          "totalValueUsd": 7198.64
+        },
+        {
+          "address": "0xc8b5493658b3426128e5a47e70942144b21f3301",
+          "nftCount": 23,
+          "isContract": false,
+          "tokenValueUsd": 10723.45,
+          "nftValueUsd": 4315.77,
+          "totalValueUsd": 15039.22
+        },
+        {
+          "address": "0x814a128c8b65e428dc9864cac3d3031b03e677bc",
+          "nftCount": 22,
+          "isContract": false,
+          "tokenValueUsd": 57851.18,
+          "nftValueUsd": 3584.57,
+          "totalValueUsd": 61435.75
+        },
+        {
+          "address": "0x4cb2f2726f998b62edcb2ea47d217b9c0d8a55f7",
+          "nftCount": 21,
+          "isContract": false,
+          "tokenValueUsd": 378.75,
+          "nftValueUsd": 1059.74,
+          "totalValueUsd": 1438.49
+        },
+        {
+          "address": "0xed9ba0bf79e04f8aff7c1ab74aacb67bf0fd9075",
+          "nftCount": 20,
+          "isContract": false,
+          "tokenValueUsd": 89940.92,
+          "nftValueUsd": 1009.67,
+          "totalValueUsd": 90950.59
+        },
+        {
+          "address": "0xb9b54bc0b82ad5efd09a06ce68bae7b870b0ddc5",
+          "nftCount": 20,
+          "isContract": true,
+          "tokenValueUsd": 425.65,
+          "nftValueUsd": 1009.67,
+          "totalValueUsd": 1435.32
+        },
+        {
+          "address": "0x812e695bc5f12cc6080236cc3a3023095da2e75f",
+          "nftCount": 20,
+          "isContract": false,
+          "tokenValueUsd": 56822.05,
+          "nftValueUsd": 2093.44,
+          "totalValueUsd": 58915.49
+        }
+      ],
       "contract_address": "0x979364e11831c9508771a226245b6e97fb9a45d1",
       "blockscout_url": "https://robinhoodchain.blockscout.com/token/0x979364e11831c9508771a226245b6e97fb9a45d1?tab=holders",
-      "last_updated_iso": "2026-08-16T15:35:17.240161+00:00"
+      "last_updated_iso": "2026-08-16T15:37:01.354023+00:00"
     }
   ]
 }
