@@ -25,17 +25,16 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple
 .header-meta{font-size:13px;color:var(--text3);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .live-dot{display:inline-block;width:6px;height:6px;background:var(--emerald);border-radius:50%;margin-right:6px;animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:32px 0 40px}
-.summary-card{background:rgba(255,255,255,.02);border:1px solid var(--border-subtle);border-radius:var(--radius);padding:20px;transition:border-color .2s}
-.summary-card:hover{border-color:var(--border)}
-.summary-label{font-size:11px;font-weight:500;color:var(--text4);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
-.summary-value{font-size:28px;font-weight:500;color:var(--text);letter-spacing:-.02em;font-family:'JetBrains Mono',monospace}
-.summary-sub{font-size:12px;color:var(--text3);margin-top:4px}
+.version-bar{display:flex;gap:8px;margin:32px 0 40px;flex-wrap:wrap}
+.version-pill{padding:10px 18px;border-radius:9999px;border:1px solid var(--border);background:rgba(255,255,255,.02);font-size:13px;color:var(--text3);display:flex;align-items:center;gap:8px;transition:all .15s}
+.version-pill .v-tag{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--accent);font-size:12px;padding:2px 8px;border-radius:4px;background:rgba(113,112,255,.1);border:1px solid rgba(113,112,255,.2)}
+.version-pill .v-count{font-family:'JetBrains Mono',monospace;color:var(--text);font-weight:500}
 .collection-section{margin-bottom:48px}
 .collection-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border-subtle);flex-wrap:wrap;gap:8px}
 .collection-title{font-size:20px;font-weight:590;letter-spacing:-.02em;display:flex;align-items:center;gap:12px}
 .collection-title a{color:var(--text);text-decoration:none}
 .collection-title a:hover{color:var(--accent-hover)}
+.v-badge{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--accent);padding:3px 10px;border-radius:6px;background:rgba(113,112,255,.1);border:1px solid rgba(113,112,255,.2)}
 .collection-badge{font-size:11px;color:var(--text3);padding:2px 8px;border:1px solid var(--border);border-radius:9999px;background:rgba(255,255,255,.03)}
 .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:24px}
 .metric-card{background:rgba(255,255,255,.02);border:1px solid var(--border-subtle);border-radius:var(--radius);padding:18px 20px}
@@ -46,7 +45,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple
 .delta-up{color:var(--emerald)}.delta-down{color:var(--red)}
 .whales-section{background:rgba(255,255,255,.02);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);overflow:hidden}
 .whales-header{padding:16px 20px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.whales-title{font-size:14px;font-weight:590;letter-spacing:-.01em}
+.whales-title{font-size:14px;font-weight:590;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
 .whales-note{font-size:12px;color:var(--text3)}
 .table{width:100%;border-collapse:collapse;font-size:13px}
 .table th{text-align:left;padding:10px 20px;font-size:11px;font-weight:500;color:var(--text4);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border-subtle);background:rgba(255,255,255,.01);white-space:nowrap}
@@ -58,16 +57,6 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple
 .addr-cell a:hover{color:var(--accent-hover)}
 .contract-tag{font-size:10px;padding:1px 6px;background:rgba(113,112,255,.1);color:var(--accent);border-radius:4px;border:1px solid rgba(113,112,255,.2)}
 .num-cell{font-family:'JetBrains Mono',monospace;text-align:right;color:var(--text)}
-.pnl-up{color:var(--emerald)}.pnl-down{color:var(--red)}
-.comparison{background:rgba(255,255,255,.02);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:24px;margin-bottom:48px}
-.comparison-title{font-size:15px;font-weight:590;margin-bottom:20px;letter-spacing:-.01em}
-.compare-table{width:100%;border-collapse:collapse;font-size:13px}
-.compare-table th{text-align:right;padding:10px 16px;font-size:11px;font-weight:500;color:var(--text4);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border)}
-.compare-table th:first-child{text-align:left}
-.compare-table td{padding:12px 16px;border-bottom:1px solid var(--border-subtle);text-align:right;font-family:'JetBrains Mono',monospace;color:var(--text)}
-.compare-table td:first-child{text-align:left;font-family:'Inter',sans-serif;color:var(--text3);font-size:12px;font-weight:500}
-.compare-table tr:last-child td{border-bottom:none}
-.winner{color:var(--emerald)!important;font-weight:500}
 .footer{border-top:1px solid var(--border-subtle);padding:24px 0 48px;margin-top:48px;font-size:12px;color:var(--text4);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .footer a{color:var(--text3);text-decoration:none}
 .footer a:hover{color:var(--text2)}
@@ -75,11 +64,8 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple
 .loading-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulse 1s ease-in-out infinite}
 .error{display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:60vh;gap:12px;color:var(--text3)}
 .error h2{color:var(--text);font-size:18px;font-weight:590}
-.sort-btn{cursor:pointer;user-select:none;padding:2px 8px;border-radius:4px;border:1px solid var(--border-subtle);background:rgba(255,255,255,.03);color:var(--text3);font-size:11px;transition:all .15s}
-.sort-btn:hover{border-color:var(--border);color:var(--text2)}
-.sort-btn.active{background:rgba(113,112,255,.1);color:var(--accent);border-color:rgba(113,112,255,.2)}
-@media(max-width:768px){.container{padding:0 16px}.summary{grid-template-columns:repeat(2,1fr)}.card-grid{grid-template-columns:repeat(2,1fr)}.table{font-size:12px}.table th,.table td{padding:8px 12px}.header-meta{font-size:11px}}
-@media(max-width:480px){.summary{grid-template-columns:1fr}.card-grid{grid-template-columns:1fr}.compare-table{font-size:11px}}
+@media(max-width:768px){.container{padding:0 16px}.card-grid{grid-template-columns:repeat(2,1fr)}.table{font-size:12px}.table th,.table td{padding:8px 12px}.header-meta{font-size:11px}}
+@media(max-width:480px){.card-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -91,8 +77,6 @@ const fmtUsd = n => n>=1e6?`$${(n/1e6).toFixed(2)}M`:n>=1e3?`$${(n/1e3).toFixed(
 const fmtEth = n => n>=1000?`${n.toFixed(0)}`:n>=1?`${n.toFixed(2)}`:`${n.toFixed(3)}`;
 const fmtNum = n => n>=1e6?`${(n/1e6).toFixed(1)}M`:n>=1e3?`${(n/1e3).toFixed(1)}K`:n.toLocaleString('en-US');
 const short = a => `<span>${a.slice(0,6)}</span><span style="color:var(--text4)">…</span><span>${a.slice(-4)}</span>`;
-const pnlCls = n => n>=0?'pnl-up':'pnl-down';
-const pnlSign = n => n>=0?'+':'';
 
 async function main() {
   let d;
@@ -101,17 +85,16 @@ async function main() {
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     d = await r.json();
   } catch(e) {
-    document.getElementById('app').innerHTML = `<div class="error"><h2>Не удалось загрузить данные</h2><p>${e.message}</p><p style="font-size:12px">data.json должен быть рядом с index.html</p></div>`;
+    document.getElementById('app').innerHTML = `<div class="error"><h2>Не удалось загрузить данные</h2><p>${e.message}</p></div>`;
     return;
   }
 
-  const [a,b] = d.collections;
-  if (!a||!b) { document.getElementById('app').innerHTML = '<div class="error"><h2>Недостаточно данных</h2></div>'; return; }
+  const cols = d.collections;
+  if (!cols || cols.length === 0) {
+    document.getElementById('app').innerHTML = '<div class="error"><h2>Недостаточно данных</h2></div>';
+    return;
+  }
 
-  const totalHolders = (a.uniqueHolders||0)+(b.uniqueHolders||0);
-  const totalVol = (a.stats.volume||0)+(b.stats.volume||0);
-  const totalSales = (a.stats.sales||0)+(b.stats.sales||0);
-  const totalListings = (a.listings.count||0)+(b.listings.count||0);
   const dt = new Date(d.generatedAt);
   const updated = dt.toLocaleString('ru-RU',{timeZone:'Europe/Moscow',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
 
@@ -126,52 +109,36 @@ async function main() {
 </div></div>
 
 <main class="container" style="padding-top:32px">
-  <div class="summary">
-    <div class="summary-card"><div class="summary-label">Всего холдеров</div><div class="summary-value">${fmtNum(totalHolders)}</div><div class="summary-sub">2 коллекции</div></div>
-    <div class="summary-card"><div class="summary-label">Объём продаж</div><div class="summary-value">Ξ ${fmtEth(totalVol)}</div><div class="summary-sub">≈ ${fmtUsd(totalVol*d.ethPriceUsd)}</div></div>
-    <div class="summary-card"><div class="summary-label">Всего продаж</div><div class="summary-value">${fmtNum(totalSales)}</div><div class="summary-sub">транзакций</div></div>
-    <div class="summary-card"><div class="summary-label">Активных листингов</div><div class="summary-value">${fmtNum(totalListings)}</div><div class="summary-sub">на OpenSea</div></div>
-  </div>
-
-  <div class="comparison">
-    <div class="comparison-title">Сравнение коллекций</div>
-    <table class="compare-table">
-      <thead><tr><th>Метрика</th><th>${a.name}</th><th>${b.name}</th></tr></thead>
-      <tbody>
-        ${cmpRow('Уникальные холдеры',a.uniqueHolders,b.uniqueHolders,fmtNum)}
-        ${cmpRow('Флор (ETH)',a.stats.floorPrice,b.stats.floorPrice,v=>`Ξ ${fmtEth(v)}`)}
-        ${cmpRow('Объём продаж (ETH)',a.stats.volume,b.stats.volume,v=>`Ξ ${fmtEth(v)}`)}
-        ${cmpRow('Продаж (кол-во)',a.stats.sales,b.stats.sales,fmtNum)}
-        ${cmpRow('Активных листингов',a.listings.count,b.listings.count,fmtNum)}
-        ${cmpRow('Объём листингов (ETH)',a.listings.totalVolumeEth,b.listings.totalVolumeEth,v=>`Ξ ${fmtEth(v)}`)}
-        ${cmpRowSupply('Supply',a.totalSupply,b.totalSupply)}
-      </tbody>
-    </table>
+  <div class="version-bar">
+    ${cols.map(c => `<div class="version-pill"><span class="v-tag">${c.version}</span> <span>${c.name}</span> <span class="v-count">${fmtNum(c.unique_holders)} holders</span></div>`).join('')}
   </div>
 `;
 
-  for (const c of d.collections) {
+  for (const c of cols) {
     const floorUsd = c.stats.floorPrice * d.ethPriceUsd;
-    const listedPct = c.totalSupply ? (c.listings.count/c.totalSupply*100) : 0;
+    const listedPct = c.total_supply ? (c.listings.count/c.total_supply*100) : 0;
     const oneDay = (c.stats.intervals||[]).find(i=>i.interval==='one_day');
     const sevenDay = (c.stats.intervals||[]).find(i=>i.interval==='seven_day');
-    const uniqPct = c.totalSupply ? (c.uniqueHolders/c.totalSupply*100).toFixed(1) : '0';
+    const uniqPct = c.total_supply ? (c.unique_holders/c.total_supply*100).toFixed(1) : '0';
 
     html += `
 <section class="collection-section">
   <div class="collection-header">
-    <div class="collection-title"><a href="${c.openseaUrl}" target="_blank" rel="noopener">${c.name}</a><span class="collection-badge mono">${c.slug}</span></div>
-    <div class="header-meta"><span>supply ${fmtNum(c.totalSupply)}</span><span>·</span><span>${c.uniqueHolders} holders</span></div>
+    <div class="collection-title">
+      <span class="v-badge">${c.version}</span>
+      <a href="${c.opensea_url}" target="_blank" rel="noopener">${c.name}</a>
+      <span class="collection-badge mono">${c.slug}</span>
+    </div>
+    <div class="header-meta"><span>supply ${fmtNum(c.total_supply)}</span><span>·</span><span>${c.unique_holders} holders</span></div>
   </div>
   <div class="card-grid">
-    <div class="metric-card"><div class="metric-label">Уникальные холдеры</div><div class="metric-value">${fmtNum(c.uniqueHolders)}</div><div class="metric-sub"><span>supply ${fmtNum(c.totalSupply)}</span><span>·</span><span>${uniqPct}% уникальных</span></div></div>
+    <div class="metric-card"><div class="metric-label">Уникальные холдеры</div><div class="metric-value">${fmtNum(c.unique_holders)}</div><div class="metric-sub"><span>supply ${fmtNum(c.total_supply)}</span><span>·</span><span>${uniqPct}% уникальных</span></div></div>
     <div class="metric-card"><div class="metric-label">Флор коллекции</div><div class="metric-value">Ξ ${fmtEth(c.stats.floorPrice)}</div><div class="metric-sub"><span>≈ ${fmtUsd(floorUsd)}</span></div></div>
     <div class="metric-card"><div class="metric-label">Объём продаж (всего)</div><div class="metric-value">Ξ ${fmtEth(c.stats.volume)}</div><div class="metric-sub"><span>≈ ${fmtUsd(c.stats.volume*d.ethPriceUsd)}</span></div></div>
     <div class="metric-card"><div class="metric-label">Продажи (кол-во)</div><div class="metric-value">${fmtNum(c.stats.sales)}</div><div class="metric-sub">${oneDay?`<span class="delta-up">24ч: ${oneDay.sales}</span>`:''}${sevenDay?`<span>7д: ${sevenDay.sales}</span>`:''}</div></div>
-    <div class="metric-card"><div class="metric-label">Листинги (активные)</div><div class="metric-value">${fmtNum(c.listings.count)}</div><div class="metric-sub"><span>${listedPct.toFixed(1)}% supply</span><span>·</span><span>медиана Ξ ${fmtEth(c.listings.medianPriceEth)}</span></div></div>
-    <div class="metric-card"><div class="metric-label">Объём листингов</div><div class="metric-value">Ξ ${fmtEth(c.listings.totalVolumeEth)}</div><div class="metric-sub"><span>≈ ${fmtUsd(c.listings.totalVolumeEth*d.ethPriceUsd)}</span></div></div>
+    <div class="metric-card"><div class="metric-label">Листинги (активные)</div><div class="metric-value">${fmtNum(c.listings.count)}</div><div class="metric-sub"><span>${listedPct.toFixed(1)}% supply</span></div></div>
   </div>
-  ${renderWhales(c, d.ethPriceUsd)}
+  ${renderWhales(c)}
 </section>`;
   }
 
@@ -184,23 +151,12 @@ async function main() {
   document.getElementById('app').innerHTML = html;
 }
 
-function cmpRow(label,av,bv,fmt) {
-  const aw = av>bv?'winner':'', bw = bv>av?'winner':'';
-  return `<tr><td>${label}</td><td class="${aw}">${fmt(av)}</td><td class="${bw}">${fmt(bv)}</td></tr>`;
-}
-function cmpRowSupply(label,a,b) {
-  const aw = a>b?'winner':'', bw = b>a?'winner':'';
-  return `<tr><td>${label}</td><td class="${aw}">${fmtNum(a)}</td><td class="${bw}">${fmtNum(b)}</td></tr>`;
-}
-
-function renderWhales(c, ethPrice) {
-  if (!c.topHolders || c.topHolders.length === 0) return '';
-  const rows = c.topHolders.map((h,i) => {
+function renderWhales(c) {
+  if (!c.top_holders || c.top_holders.length === 0) return '';
+  const rows = c.top_holders.map((h,i) => {
     const tv = h.totalValueUsd !== undefined ? fmtUsd(h.totalValueUsd) : '—';
     const cash = h.tokenValueUsd !== undefined ? fmtUsd(h.tokenValueUsd) : '—';
     const nftv = h.nftValueUsd !== undefined ? fmtUsd(h.nftValueUsd) : '—';
-    const pnl = h.pnlAbsolute !== undefined ? `${pnlSign(h.pnlAbsolute)}${fmtUsd(h.pnlAbsolute)}` : '—';
-    const pnlC = h.pnlAbsolute !== undefined ? pnlCls(h.pnlAbsolute) : '';
     return `<tr>
       <td style="color:var(--text4);font-family:'JetBrains Mono',monospace">${i+1}</td>
       <td class="addr-cell"><a href="https://robinhoodchain.blockscout.com/address/${h.address}" target="_blank" rel="noopener">${short(h.address)}${h.isContract?'<span class="contract-tag" style="margin-left:6px">contract</span>':''}</a></td>
@@ -208,14 +164,13 @@ function renderWhales(c, ethPrice) {
       <td class="num-cell">${cash}</td>
       <td class="num-cell">${nftv}</td>
       <td class="num-cell" style="font-weight:500">${tv}</td>
-      <td class="num-cell ${pnlC}">${pnl}</td>
     </tr>`;
   }).join('');
   return `
 <div class="whales-section">
-  <div class="whales-header"><div class="whales-title">Топ холдеры (киты)</div><div class="whales-note">портфолио через OpenSea · chain: robinhood · топ-15</div></div>
+  <div class="whales-header"><div class="whales-title"><span class="v-badge" style="font-size:11px;padding:2px 6px">${c.version}</span>Топ холдеры (киты)</div><div class="whales-note">портфолио через OpenSea · chain: robinhood · топ-15</div></div>
   <div style="overflow-x:auto"><table class="table">
-    <thead><tr><th>#</th><th>Адрес</th><th style="text-align:right">NFT</th><th style="text-align:right">Наличные ($)</th><th style="text-align:right">NFT ($)</th><th style="text-align:right">Всего ($)</th><th style="text-align:right">P&L день</th></tr></thead>
+    <thead><tr><th>#</th><th>Адрес</th><th style="text-align:right">NFT</th><th style="text-align:right">Наличные ($)</th><th style="text-align:right">NFT ($)</th><th style="text-align:right">Всего ($)</th></tr></thead>
     <tbody>${rows}</tbody>
   </table></div>
 </div>`;

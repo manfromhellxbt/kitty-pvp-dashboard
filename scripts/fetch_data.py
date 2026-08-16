@@ -23,16 +23,18 @@ TOP_HOLDERS_LIMIT = 15
 
 COLLECTIONS = [
     {
-        "slug": "robinhood-kitties",
-        "name": "Robinhood Kitties",
-        "address": "0x979364e11831c9508771a226245b6e97fb9a45d1",
-        "opensea_url": "https://opensea.io/collection/robinhood-kitties",
-    },
-    {
         "slug": "robinhood-kitties11",
-        "name": "Robinhood Kitties 11",
+        "name": "V1 Kitties",
         "address": "0xAe42D5511886590538160A3cbDb91388cf1e76A3",
         "opensea_url": "https://opensea.io/collection/robinhood-kitties11",
+        "version": "V1",
+    },
+    {
+        "slug": "robinhood-kitties",
+        "name": "V2 Kitties",
+        "address": "0x979364e11831c9508771a226245b6e97fb9a45d1",
+        "opensea_url": "https://opensea.io/collection/robinhood-kitties",
+        "version": "V2",
     },
 ]
 
@@ -113,8 +115,6 @@ def fetch_portfolio(address):
             "tokenValueUsd": float(d.get("token_value_usd") or 0),
             "nftValueUsd": float(d.get("nft_value_usd") or 0),
             "totalValueUsd": float(d.get("total_value_usd") or 0),
-            "pnlAbsolute": float((d.get("pnl_absolute") or "+0").replace("+", "") or 0),
-            "pnlPercentage": float((d.get("pnl_percentage") or "+0").replace("+", "") or 0),
         }
     except Exception as e:
         print(f"[warn] portfolio {address[:10]}: {e}", file=sys.stderr)
@@ -207,16 +207,17 @@ def fetch_all():
 
         collections.append({
             "slug": col["slug"],
-            "name": meta.get("name") or col["name"],
-            "openseaUrl": col["opensea_url"],
-            "totalSupply": meta.get("total_supply") or 0,
-            "uniqueHolders": holders_count or stats["numOwners"] or len(top_holders),
+            "name": col["name"],
+            "version": col["version"],
+            "opensea_url": col["opensea_url"],
+            "total_supply": meta.get("total_supply") or 0,
+            "unique_holders": holders_count or stats["numOwners"] or len(top_holders),
             "stats": stats,
             "listings": listings,
-            "topHolders": top_slice,
-            "contractAddress": col["address"],
-            "blockscoutUrl": f"https://robinhoodchain.blockscout.com/token/{col['address']}?tab=holders",
-            "lastUpdatedISO": datetime.now(timezone.utc).isoformat(),
+            "top_holders": top_slice,
+            "contract_address": col["address"],
+            "blockscout_url": f"https://robinhoodchain.blockscout.com/token/{col['address']}?tab=holders",
+            "last_updated_iso": datetime.now(timezone.utc).isoformat(),
         })
 
     return {
@@ -237,8 +238,8 @@ def main():
     print(f"[ok] wrote {out_path} ({len(data['collections'])} collections)", file=sys.stderr)
     for c in data["collections"]:
         print(
-            f"  {c['slug']}: {c['uniqueHolders']} holders, floor Ξ{c['stats']['floorPrice']}, "
-            f"vol Ξ{c['stats']['volume']}, listings {c['listings']['count']}",
+            f"  {c['version']} {c['name']} ({c['slug']}): {c['unique_holders']} holders, "
+            f"floor Ξ{c['stats']['floorPrice']}, listings {c['listings']['count']}",
             file=sys.stderr,
         )
 
