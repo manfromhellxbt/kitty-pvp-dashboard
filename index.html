@@ -279,7 +279,7 @@ function renderWhales(c) {
     const nftv = h.nftValueUsd !== undefined ? fmtUsd(h.nftValueUsd) : '—';
     return `<tr>
       <td style="color:var(--text4);font-family:'JetBrains Mono',monospace">${i+1}</td>
-      <td class="addr-cell"><a href="https://robinhoodchain.blockscout.com/address/${h.address}" target="_blank" rel="noopener">${short(h.address)}${h.isContract?'<span class="contract-tag" style="margin-left:6px">contract</span>':''}</a></td>
+      <td class="addr-cell"><a href="https://opensea.io/${h.address}/portfolio" target="_blank" rel="noopener">${short(h.address)}${h.isContract?'<span class="contract-tag" style="margin-left:6px">contract</span>':''}</a></td>
       <td class="num-cell">${h.nftCount}</td>
       <td class="num-cell">${cash}</td>
       <td class="num-cell">${nftv}</td>
