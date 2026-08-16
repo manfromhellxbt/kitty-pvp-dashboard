@@ -277,6 +277,14 @@ function renderWhales(c) {
     const tv = h.totalValueUsd !== undefined ? fmtUsd(h.totalValueUsd) : '—';
     const cash = h.tokenValueUsd !== undefined ? fmtUsd(h.tokenValueUsd) : '—';
     const nftv = h.nftValueUsd !== undefined ? fmtUsd(h.nftValueUsd) : '—';
+    const p = h.pnl || {};
+    const avgBuy = p.avgBuyEth != null ? `Ξ ${fmtEth(p.avgBuyEth)}` : '—';
+    const sold = p.sellCount ? `${p.sellCount} · Ξ ${fmtEth(p.soldEth||0)}` : '—';
+    const pnlCls = p.pnlEth == null ? '' : (p.pnlEth >= 0 ? 'delta-up' : 'delta-down');
+    const pnl = p.pnlEth == null ? '—' : `${p.pnlEth>=0?'+':''}Ξ ${fmtEth(Math.abs(p.pnlEth))}`;
+    const vs = p.vsFloorPct;
+    const vsCls = vs == null ? '' : (vs >= 0 ? 'delta-up' : 'delta-down');
+    const vsTxt = vs == null ? '—' : `${vs>0?'+':''}${vs.toFixed(1)}%${p.coverage!=null && p.coverage<0.5?' ~':''}`;
     return `<tr>
       <td style="color:var(--text4);font-family:'JetBrains Mono',monospace">${i+1}</td>
       <td class="addr-cell"><a href="https://opensea.io/${h.address}/portfolio" target="_blank" rel="noopener">${short(h.address)}${h.isContract?'<span class="contract-tag" style="margin-left:6px">contract</span>':''}</a></td>
@@ -284,13 +292,27 @@ function renderWhales(c) {
       <td class="num-cell">${cash}</td>
       <td class="num-cell">${nftv}</td>
       <td class="num-cell" style="font-weight:500">${tv}</td>
+      <td class="num-cell">${avgBuy}</td>
+      <td class="num-cell">${sold}</td>
+      <td class="num-cell ${pnlCls}">${pnl}</td>
+      <td class="num-cell ${vsCls}">${vsTxt}</td>
     </tr>`;
   }).join('');
   return `
 <div class="whales-section">
-  <div class="whales-header"><div class="whales-title"><span class="v-badge" style="font-size:11px;padding:2px 6px">${c.version}</span>Top holders</div><div class="whales-note">full OpenSea portfolio · top 15</div></div>
+  <div class="whales-header"><div class="whales-title"><span class="v-badge" style="font-size:11px;padding:2px 6px">${c.version}</span>Top holders</div><div class="whales-note">full OpenSea portfolio · PnL from OpenSea trades only · ~ = low buy coverage · top 15</div></div>
   <div style="overflow-x:auto"><table class="table">
-    <thead><tr><th>#</th><th>Address</th><th style="text-align:right">NFT</th><th style="text-align:right">Cash ($)</th><th style="text-align:right">NFT ($)</th><th style="text-align:right">Total ($)</th></tr></thead>
+    <thead><tr>
+      <th>#</th><th>Address</th>
+      <th style="text-align:right">NFT</th>
+      <th style="text-align:right">Cash ($)</th>
+      <th style="text-align:right">NFT ($)</th>
+      <th style="text-align:right">Total ($)</th>
+      <th style="text-align:right">Avg buy</th>
+      <th style="text-align:right">Sold</th>
+      <th style="text-align:right">P&L</th>
+      <th style="text-align:right">vs floor</th>
+    </tr></thead>
     <tbody>${rows}</tbody>
   </table></div>
 </div>`;

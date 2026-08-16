@@ -20,6 +20,8 @@ BLOCKSCOUT = "https://robinhoodchain.blockscout.com/api/v2"
 OPENSEA = "https://api.opensea.io/api/v2"
 ETH_PRICE_FALLBACK = 1879.0
 TOP_HOLDERS_LIMIT = 15
+SALES_PAGE_LIMIT = 20
+_sales_cache = {}
 
 COLLECTIONS = [
     {
@@ -53,8 +55,10 @@ def fetch_json(url, headers=None, retries=3):
                 return json.loads(r.read().decode())
         except Exception as e:
             last = e
-            if attempt + 1 < retries:
-                time.sleep(1.5 * (attempt + 1))
+            if attempt + 1 >= retries:
+                break
+            wait = 8 * (attempt + 1) if "429" in str(e) else 1.5 * (attempt + 1)
+            time.sleep(wait)
     raise last
 
 
@@ -114,6 +118,83 @@ def fetch_token_holders_info(addr):
     if not count:
         count = len(top)
     return count, top
+
+
+def payment_eth(event):
+    p = event.get("payment") or {}
+    qty = float(p.get("quantity") or 0)
+    dec = int(p.get("decimals") or 18)
+    return qty / (10 ** dec) if dec >= 0 else 0.0
+
+
+def fetch_account_sales(address):
+    """All OpenSea sale events for a wallet (any collection). Cached per run."""
+    key = address.lower()
+    if key in _sales_cache:
+        return _sales_cache[key]
+    evs = []
+    nxt = None
+    capped = False
+    for page in range(SALES_PAGE_LIMIT):
+        path = f"/events/accounts/{key}?event_type=sale&limit=50"
+        if nxt:
+            path += "&next=" + urllib.parse.quote(nxt)
+        try:
+            d = os_get(path)
+        except Exception as e:
+            print(f"[warn] sales {key[:10]} p{page}: {e}", file=sys.stderr)
+            break
+        chunk = d.get("asset_events") or []
+        evs.extend(chunk)
+        nxt = d.get("next")
+        if not nxt or not chunk:
+            break
+        if page + 1 >= SALES_PAGE_LIMIT:
+            capped = True
+        time.sleep(0.25)
+    _sales_cache[key] = (evs, capped)
+    return evs, capped
+
+
+def holder_trade_pnl(address, contract, nft_count, floor_eth):
+    """OpenSea trades only. Transfers/mints have no cost basis."""
+    sales, capped = fetch_account_sales(address)
+    contract = (contract or "").lower()
+    addr = address.lower()
+    buys = sells = 0
+    spent = sold = 0.0
+    for e in sales:
+        nft = e.get("nft") or {}
+        if (nft.get("contract") or "").lower() != contract:
+            continue
+        eth = payment_eth(e)
+        if (e.get("buyer") or "").lower() == addr:
+            buys += 1
+            spent += eth
+        if (e.get("seller") or "").lower() == addr:
+            sells += 1
+            sold += eth
+    avg_buy = (spent / buys) if buys else None
+    avg_sell = (sold / sells) if sells else None
+    vs_floor = pnl = dd = None
+    if avg_buy and avg_buy > 0:
+        vs_floor = (floor_eth - avg_buy) / avg_buy * 100.0
+        dd = vs_floor if vs_floor < 0 else 0.0
+        pnl = nft_count * (floor_eth - avg_buy) + (sold - avg_buy * sells)
+    coverage = (buys / nft_count) if nft_count else 0.0
+    return {
+        "buyCount": buys,
+        "sellCount": sells,
+        "spentEth": round(spent, 6),
+        "soldEth": round(sold, 6),
+        "avgBuyEth": round(avg_buy, 6) if avg_buy is not None else None,
+        "avgSellEth": round(avg_sell, 6) if avg_sell is not None else None,
+        "pnlEth": round(pnl, 6) if pnl is not None else None,
+        "vsFloorPct": round(vs_floor, 1) if vs_floor is not None else None,
+        "drawdownPct": round(dd, 1) if dd is not None else None,
+        "coverage": round(coverage, 2),
+        "capped": capped,
+    }
 
 
 def fetch_portfolio(address):
@@ -227,10 +308,14 @@ def fetch_all():
         if not holders_count or holders_count < len(top_holders):
             holders_count = stats.get("numOwners") or holders_count or len(top_holders)
 
-        # portfolio for top holders
+        # portfolio + trade PnL for top holders
         top_slice = top_holders[:TOP_HOLDERS_LIMIT]
+        floor = float((stats or {}).get("floorPrice") or 0)
         for h in top_slice:
             h.update(fetch_portfolio(h["address"]))
+            h["pnl"] = holder_trade_pnl(
+                h["address"], col["address"], h.get("nftCount") or 0, floor
+            )
 
         listings = fetch_listings(col["slug"])
 
