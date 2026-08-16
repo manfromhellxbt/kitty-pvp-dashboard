@@ -1,33 +1,49 @@
 # Kitty PVP Dashboard
 
-Live analytics for two Robinhood Kitties NFT collections:
+Live analytics dashboard for **Robinhood Kitties** NFT collections on the Robinhood L2 chain.
 
+🌐 **Live:** https://manfromhellxbt.github.io/kitty-pvp-dashboard/
+
+## Collections
 - [robinhood-kitties](https://opensea.io/collection/robinhood-kitties)
 - [robinhood-kitties11](https://opensea.io/collection/robinhood-kitties11)
 
-## Metrics
-
-- Unique holders (Blockscout Robinhood)
-- Top whales: wallet cash + NFT portfolio value (OpenSea portfolio API)
-- Sales volume + sales count (OpenSea stats)
+## Metrics shown
+- Unique holders (total count)
+- Top 15 whales — wallet cash + NFT portfolio value
+- Sales volume + sales count (total, 24h, 7d)
 - Active listings count + listing volume
 - Floor price
+- Side-by-side comparison of both collections
 
-## Stack
-
-- Next.js 14 (App Router) + ISR `revalidate = 21600` (6 hours)
-- OpenSea API v2 + Blockscout Robinhood
-
-## Env
+## Architecture
 
 ```
-OPENSEA_API_KEY=...
+[VPS — private]                    [GitHub Pages — public, free]
+┌──────────────────────┐            ┌──────────────────────────┐
+│ scripts/fetch_data.py │            │ index.html               │
+│ + OPENSEA_API_KEY    │─commit──→  │ public/data.json         │
+│ cron every 6h        │   every 6h │ (aggregated public data)  │
+└──────────────────────┘            └──────────────────────────┘
 ```
 
-## Local
+- **Frontend:** static `index.html`, reads `data.json` via fetch. No build step.
+- **Data pipeline:** Python script on a VPS fetches from OpenSea API v2 + Blockscout every 6h, commits `data.json` to this repo. GitHub Pages auto-deploys.
+- **Secrets:** the OpenSea API key lives ONLY on the VPS (`/opt/data/config/opensea_key.txt`). It is never committed to this repo.
+- The data in `data.json` is aggregated from public on-chain sources — anyone can see the same on Blockscout/OpenSea.
+
+## Local dev
 
 ```bash
-npm i
-cp .env.example .env.local   # set key
-npm run dev
+# serve locally
+python3 -m http.server 8000
+# open http://localhost:8000
+```
+
+## Refresh data
+
+```bash
+export OPENSEA_API_KEY=...
+python3 scripts/fetch_data.py     # writes public/data.json
+git add public/data.json && git commit -m "update data" && git push
 ```
