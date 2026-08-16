@@ -112,39 +112,39 @@ function renderCompare(cols, ethUsd) {
   const listed = c => c.total_supply ? c.listings.count / c.total_supply * 100 : 0;
   const groups = [
     {
-      title: 'Коллекция',
+      title: 'Collection',
       rows: [
-        {label:'Холдеры', a:v1.unique_holders, b:v2.unique_holders, fmt:n => fmtNum(n), better:'max'},
+        {label:'Holders', a:v1.unique_holders, b:v2.unique_holders, fmt:n => fmtNum(n), better:'max'},
         {label:'Supply', a:v1.total_supply, b:v2.total_supply, fmt:n => fmtNum(n)},
-        {label:'Уникальность', a:uniq(v1), b:uniq(v2), fmt:n => `${n.toFixed(1)}%`, better:'max'},
+        {label:'Unique %', a:uniq(v1), b:uniq(v2), fmt:n => `${n.toFixed(1)}%`, better:'max'},
       ]
     },
     {
-      title: 'Цена',
+      title: 'Price',
       rows: [
-        {label:'Флор', a:v1.stats.floorPrice, b:v2.stats.floorPrice, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'min'},
-        {label:'Медиана листинга', a:v1.listings.medianPriceEth, b:v2.listings.medianPriceEth, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'min'},
+        {label:'Floor', a:v1.stats.floorPrice, b:v2.stats.floorPrice, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'min'},
+        {label:'Median listing', a:v1.listings.medianPriceEth, b:v2.listings.medianPriceEth, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'min'},
       ]
     },
     {
-      title: 'Продажи',
+      title: 'Sales',
       rows: [
-        {label:'Объём всего', a:v1.stats.volume, b:v2.stats.volume, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
-        {label:'Продажи всего', a:v1.stats.sales, b:v2.stats.sales, fmt:n => fmtNum(n), better:'max'},
-        {label:'Объём 24ч', a:intervalOf(v1,'one_day').volume, b:intervalOf(v2,'one_day').volume, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
-        {label:'Продажи 24ч', a:intervalOf(v1,'one_day').sales, b:intervalOf(v2,'one_day').sales, fmt:n => fmtNum(n), better:'max'},
-        {label:'Объём 7д', a:intervalOf(v1,'seven_day').volume, b:intervalOf(v2,'seven_day').volume, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
-        {label:'Продажи 7д', a:intervalOf(v1,'seven_day').sales, b:intervalOf(v2,'seven_day').sales, fmt:n => fmtNum(n), better:'max'},
-        {label:'Объём 30д', a:intervalOf(v1,'thirty_day').volume, b:intervalOf(v2,'thirty_day').volume, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
-        {label:'Продажи 30д', a:intervalOf(v1,'thirty_day').sales, b:intervalOf(v2,'thirty_day').sales, fmt:n => fmtNum(n), better:'max'},
+        {label:'Total volume', a:v1.stats.volume, b:v2.stats.volume, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
+        {label:'Total sales', a:v1.stats.sales, b:v2.stats.sales, fmt:n => fmtNum(n), better:'max'},
+        {label:'Volume 24h', a:intervalOf(v1,'one_day').volume, b:intervalOf(v2,'one_day').volume, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
+        {label:'Sales 24h', a:intervalOf(v1,'one_day').sales, b:intervalOf(v2,'one_day').sales, fmt:n => fmtNum(n), better:'max'},
+        {label:'Volume 7d', a:intervalOf(v1,'seven_day').volume, b:intervalOf(v2,'seven_day').volume, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
+        {label:'Sales 7d', a:intervalOf(v1,'seven_day').sales, b:intervalOf(v2,'seven_day').sales, fmt:n => fmtNum(n), better:'max'},
+        {label:'Volume 30d', a:intervalOf(v1,'thirty_day').volume, b:intervalOf(v2,'thirty_day').volume, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
+        {label:'Sales 30d', a:intervalOf(v1,'thirty_day').sales, b:intervalOf(v2,'thirty_day').sales, fmt:n => fmtNum(n), better:'max'},
       ]
     },
     {
-      title: 'Рынок',
+      title: 'Market',
       rows: [
-        {label:'Активные листинги', a:v1.listings.count, b:v2.listings.count, fmt:n => fmtNum(n), better:'max'},
-        {label:'% supply в листинге', a:listed(v1), b:listed(v2), fmt:n => `${n.toFixed(1)}%`},
-        {label:'Объём листингов', a:v1.listings.totalVolumeEth, b:v2.listings.totalVolumeEth, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
+        {label:'Active listings', a:v1.listings.count, b:v2.listings.count, fmt:n => fmtNum(n), better:'max'},
+        {label:'Listed % of supply', a:listed(v1), b:listed(v2), fmt:n => `${n.toFixed(1)}%`},
+        {label:'Listing volume', a:v1.listings.totalVolumeEth, b:v2.listings.totalVolumeEth, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
       ]
     }
   ];
@@ -169,11 +169,11 @@ function renderCompare(cols, ethUsd) {
 <div class="compare-section">
   <div class="compare-header">
     <div class="compare-title">V1 vs V2</div>
-    <div class="compare-note">сравнение по актуальным метрикам · Δ = V2 относительно V1</div>
+    <div class="compare-note">latest metrics · Δ = V2 vs V1</div>
   </div>
   <div style="overflow-x:auto"><table class="table">
     <thead><tr>
-      <th>Метрика</th>
+      <th>Metric</th>
       <th style="text-align:right"><span class="v-badge" style="font-size:11px;padding:2px 6px">V1</span> ${v1.name}</th>
       <th style="text-align:right"><span class="v-badge" style="font-size:11px;padding:2px 6px">V2</span> ${v2.name}</th>
       <th style="text-align:right">Δ</th>
@@ -201,13 +201,13 @@ async function main() {
   }
 
   const dt = new Date(d.generatedAt);
-  const updated = dt.toLocaleString('ru-RU',{timeZone:'Europe/Moscow',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  const updated = dt.toLocaleString('en-GB',{timeZone:'UTC',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',hour12:false});
 
   let html = `
 <div class="header"><div class="container header-inner">
   <div class="logo"><span class="logo-icon">🐱</span>Kitty PVP Dashboard</div>
   <div class="header-meta">
-    <span><span class="live-dot"></span>обновлено ${updated} МСК</span>
+    <span><span class="live-dot"></span>updated ${updated} UTC</span>
     <span>·</span><span>ETH ≈ ${fmtUsd(d.ethPriceUsd)}</span>
     <span>·</span><span>⬡ Robinhood chain</span>
   </div>
