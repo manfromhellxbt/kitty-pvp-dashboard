@@ -194,6 +194,9 @@ def fetch_all():
         meta = fetch_collection_meta(col["slug"])
         stats = fetch_collection_stats(col["slug"])
         holders_count, top_holders = fetch_token_holders_info(col["address"])
+        # Prefer OpenSea num_owners if Blockscout holders_count failed (0 or only top pages)
+        if not holders_count or holders_count < len(top_holders):
+            holders_count = stats.get("numOwners") or holders_count or len(top_holders)
 
         # portfolio for top holders
         top_slice = top_holders[:TOP_HOLDERS_LIMIT]
@@ -224,16 +227,20 @@ def fetch_all():
 
 
 def main():
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "public")
+    # Write data.json next to index.html (repo root) for GitHub Pages
+    out_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
     os.makedirs(out_dir, exist_ok=True)
     data = fetch_all()
     out_path = os.path.join(out_dir, "data.json")
     with open(out_path, "w") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
     print(f"[ok] wrote {out_path} ({len(data['collections'])} collections)", file=sys.stderr)
-    # summary
     for c in data["collections"]:
-        print(f"  {c['slug']}: {c['uniqueHolders']} holders, floor Ξ{c['stats']['floorPrice']}, vol Ξ{c['stats']['volume']}, listings {c['listings']['count']}", file=sys.stderr)
+        print(
+            f"  {c['slug']}: {c['uniqueHolders']} holders, floor Ξ{c['stats']['floorPrice']}, "
+            f"vol Ξ{c['stats']['volume']}, listings {c['listings']['count']}",
+            file=sys.stderr,
+        )
 
 
 if __name__ == "__main__":
