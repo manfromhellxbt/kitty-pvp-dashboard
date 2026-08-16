@@ -110,6 +110,13 @@ function renderCompare(cols, ethUsd) {
 
   const uniq = c => c.total_supply ? c.unique_holders / c.total_supply * 100 : 0;
   const listed = c => c.total_supply ? c.listings.count / c.total_supply * 100 : 0;
+  const whaleCash = c => (c.top_holders || []).reduce((s, h) => s + (h.tokenValueUsd || 0), 0);
+  const whaleNft = c => (c.top_holders || []).reduce((s, h) => s + (h.nftValueUsd || 0), 0);
+  const whaleCap = c => (c.top_holders || []).reduce((s, h) => s + (h.totalValueUsd || 0), 0);
+  const whaleAvg = c => {
+    const n = (c.top_holders || []).length;
+    return n ? whaleCap(c) / n : 0;
+  };
   const groups = [
     {
       title: 'Collection',
@@ -145,6 +152,11 @@ function renderCompare(cols, ethUsd) {
         {label:'Active listings', a:v1.listings.count, b:v2.listings.count, fmt:n => fmtNum(n), better:'max'},
         {label:'Listed % of supply', a:listed(v1), b:listed(v2), fmt:n => `${n.toFixed(1)}%`},
         {label:'Listing volume', a:v1.listings.totalVolumeEth, b:v2.listings.totalVolumeEth, fmt:n => `Ξ ${fmtEth(n)}`, sub:n => `≈ ${fmtUsd(n * ethUsd)}`, better:'max'},
+        {label:'Whale capital (top 15)', a:whaleCap(v1), b:whaleCap(v2), fmt:n => fmtUsd(n), sub:(_, side) => {
+          const c = side === 'b' ? v2 : v1;
+          return `cash ${fmtUsd(whaleCash(c))} · NFT ${fmtUsd(whaleNft(c))}`;
+        }, better:'max'},
+        {label:'Avg whale', a:whaleAvg(v1), b:whaleAvg(v2), fmt:n => fmtUsd(n), better:'max'},
       ]
     }
   ];
@@ -154,11 +166,16 @@ function renderCompare(cols, ethUsd) {
     const rows = g.rows.map(r => {
       const [ca, cb] = leadClass(r.a, r.b, r.better);
       const d = fmtDelta(r.a, r.b);
-      const cell = (n, cls) => `<td class="num-cell ${cls}"><span class="cell-main">${r.fmt(n)}</span>${r.sub?`<span class="cell-sub">${r.sub(n)}</span>`:''}</td>`;
+      const sub = (n, side) => {
+        if (!r.sub) return '';
+        const text = r.sub.length >= 2 ? r.sub(n, side) : r.sub(n);
+        return `<span class="cell-sub">${text}</span>`;
+      };
+      const cell = (n, cls, side) => `<td class="num-cell ${cls}"><span class="cell-main">${r.fmt(n)}</span>${sub(n, side)}</td>`;
       return `<tr>
         <td>${r.label}</td>
-        ${cell(r.a, ca)}
-        ${cell(r.b, cb)}
+        ${cell(r.a, ca, 'a')}
+        ${cell(r.b, cb, 'b')}
         <td class="num-cell ${d.cls}">${d.text}</td>
       </tr>`;
     }).join('');
@@ -169,7 +186,7 @@ function renderCompare(cols, ethUsd) {
 <div class="compare-section">
   <div class="compare-header">
     <div class="compare-title">V1 vs V2</div>
-    <div class="compare-note">latest metrics · Δ = V2 vs V1</div>
+    <div class="compare-note">latest metrics · Δ = V2 vs V1 · whale capital = cash + NFTs of top 15 holders</div>
   </div>
   <div style="overflow-x:auto"><table class="table">
     <thead><tr>
