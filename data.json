@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-01T02:03:21.925409+00:00",
-  "ethPriceUsd": 2689.18,
+  "generatedAt": "2026-10-01T03:03:25.593440+00:00",
+  "ethPriceUsd": 2685.05,
   "collections": [
     {
       "slug": "robinhoodkitties",
@@ -18,8 +18,8 @@
         "intervals": [
           {
             "interval": "one_day",
-            "volume": 0.059475599999999997,
-            "sales": 10
+            "volume": 0.052175599999999996,
+            "sales": 9
           },
           {
             "interval": "seven_day",
@@ -28,25 +28,25 @@
           },
           {
             "interval": "thirty_day",
-            "volume": 4.494764987099056,
-            "sales": 345
+            "volume": 3.9729385871000567,
+            "sales": 328
           }
         ]
       },
       "listings": {
         "count": 126,
-        "totalVolumeEth": 66.0257,
+        "totalVolumeEth": 65.6345,
         "floorFromListings": 0.0079,
-        "medianPriceEth": 0.063
+        "medianPriceEth": 0.08
       },
       "top_holders": [
         {
           "address": "0xc630c5e9b6117c88dd6cd6fcc7418e2039727136",
           "nftCount": 123,
           "isContract": false,
-          "tokenValueUsd": 144.54,
-          "nftValueUsd": 2258.21,
-          "totalValueUsd": 2402.75,
+          "tokenValueUsd": 145.08,
+          "nftValueUsd": 2250.1,
+          "totalValueUsd": 2395.17,
           "pnl": {
             "buyCount": 136,
             "sellCount": 4,
@@ -67,9 +67,9 @@
           "address": "0xca88c31ad2878142bce521c0f8bbabebbc685dd9",
           "nftCount": 89,
           "isContract": true,
-          "tokenValueUsd": 235.52,
-          "nftValueUsd": 2799.15,
-          "totalValueUsd": 3034.67,
+          "tokenValueUsd": 235.51,
+          "nftValueUsd": 2810.51,
+          "totalValueUsd": 3046.03,
           "pnl": {
             "buyCount": 97,
             "sellCount": 7,
@@ -90,9 +90,9 @@
           "address": "0x035e754c511279c78c2a24a18223e65dbf3f150a",
           "nftCount": 51,
           "isContract": false,
-          "tokenValueUsd": 68.87,
-          "nftValueUsd": 2868.52,
-          "totalValueUsd": 2937.39,
+          "tokenValueUsd": 68.8,
+          "nftValueUsd": 2862.09,
+          "totalValueUsd": 2930.9,
           "pnl": {
             "buyCount": 54,
             "sellCount": 0,
@@ -113,9 +113,9 @@
           "address": "0x18f0460e495d596f8226491a04761e12ea0f0748",
           "nftCount": 48,
           "isContract": false,
-          "tokenValueUsd": 1824.63,
-          "nftValueUsd": 826.11,
-          "totalValueUsd": 2650.74,
+          "tokenValueUsd": 1824.59,
+          "nftValueUsd": 825.18,
+          "totalValueUsd": 2649.77,
           "pnl": {
             "buyCount": 48,
             "sellCount": 0,
@@ -136,9 +136,9 @@
           "address": "0x1d915159aeee1c9d71b4be758301938b26be0966",
           "nftCount": 42,
           "isContract": false,
-          "tokenValueUsd": 9.8,
-          "nftValueUsd": 61.46,
-          "totalValueUsd": 71.27,
+          "tokenValueUsd": 9.79,
+          "nftValueUsd": 61.4,
+          "totalValueUsd": 71.2,
           "pnl": {
             "buyCount": 0,
             "sellCount": 0,
@@ -159,9 +159,9 @@
           "address": "0xedfaea2d08fcd8e814c480d3a55b49f9550c9df6",
           "nftCount": 38,
           "isContract": false,
-          "tokenValueUsd": 174.19,
-          "nftValueUsd": 1246.75,
-          "totalValueUsd": 1420.94,
+          "tokenValueUsd": 174.47,
+          "nftValueUsd": 1250.44,
+          "totalValueUsd": 1424.91,
           "pnl": {
             "buyCount": 23,
             "sellCount": 0,
@@ -182,9 +182,9 @@
           "address": "0x53d4e41900decf004ebe9cefa0396dac1257ff30",
           "nftCount": 34,
           "isContract": false,
-          "tokenValueUsd": 8456.95,
-          "nftValueUsd": 2296.51,
-          "totalValueUsd": 10753.46,
+          "tokenValueUsd": 8445.49,
+          "nftValueUsd": 2325.58,
+          "totalValueUsd": 10771.08,
           "pnl": {
             "buyCount": 0,
             "sellCount": 10,
@@ -206,8 +206,8 @@
           "nftCount": 33,
           "isContract": false,
           "tokenValueUsd": 36.85,
-          "nftValueUsd": 759.76,
-          "totalValueUsd": 796.61,
+          "nftValueUsd": 760.6,
+          "totalValueUsd": 797.45,
           "pnl": {
             "buyCount": 0,
             "sellCount": 8,
@@ -228,9 +228,9 @@
           "address": "0x3b970a579dd81c3638731a32907ee7b818f7ed56",
           "nftCount": 27,
           "isContract": false,
-          "tokenValueUsd": 779.23,
-          "nftValueUsd": 510.88,
-          "totalValueUsd": 1290.11,
+          "tokenValueUsd": 778.41,
+          "nftValueUsd": 510.33,
+          "totalValueUsd": 1288.75,
           "pnl": {
             "buyCount": 30,
             "sellCount": 3,
@@ -251,9 +251,9 @@
           "address": "0x1c4ae64191145f42801660479bf08d5ea5021e95",
           "nftCount": 25,
           "isContract": false,
-          "tokenValueUsd": 2243.59,
-          "nftValueUsd": 686.47,
-          "totalValueUsd": 2930.06,
+          "tokenValueUsd": 2225.27,
+          "nftValueUsd": 685.46,
+          "totalValueUsd": 2910.72,
           "pnl": {
             "buyCount": 0,
             "sellCount": 0,
@@ -274,9 +274,9 @@
           "address": "0xfc3e1e5cb699c29eac22ffbe7f66b8816f7a1389",
           "nftCount": 22,
           "isContract": false,
-          "tokenValueUsd": 10.44,
-          "nftValueUsd": 995.68,
-          "totalValueUsd": 1006.12,
+          "tokenValueUsd": 10.43,
+          "nftValueUsd": 995.41,
+          "totalValueUsd": 1005.84,
           "pnl": {
             "buyCount": 22,
             "sellCount": 0,
@@ -297,9 +297,9 @@
           "address": "0xd07bb2c23480a0ff4e501889a2c22d4ffc9bbf20",
           "nftCount": 21,
           "isContract": true,
-          "tokenValueUsd": 1699.71,
-          "nftValueUsd": 3055.16,
-          "totalValueUsd": 4754.87,
+          "tokenValueUsd": 1697.11,
+          "nftValueUsd": 3093.61,
+          "totalValueUsd": 4790.73,
           "pnl": {
             "buyCount": 23,
             "sellCount": 2,
@@ -321,8 +321,8 @@
           "nftCount": 21,
           "isContract": false,
           "tokenValueUsd": 8.46,
-          "nftValueUsd": 441.23,
-          "totalValueUsd": 449.69,
+          "nftValueUsd": 441.56,
+          "totalValueUsd": 450.02,
           "pnl": {
             "buyCount": 0,
             "sellCount": 0,
@@ -343,9 +343,9 @@
           "address": "0xf4c40bf7070fdcf64ecf020bcb583738a6cc3bcd",
           "nftCount": 20,
           "isContract": false,
-          "tokenValueUsd": 40081.71,
-          "nftValueUsd": 20926.96,
-          "totalValueUsd": 61008.67,
+          "tokenValueUsd": 40814.4,
+          "nftValueUsd": 21183.56,
+          "totalValueUsd": 61997.95,
           "pnl": {
             "buyCount": 20,
             "sellCount": 20,
@@ -366,9 +366,9 @@
           "address": "0x860993dcb240bd1e60f29f1887164f15ffb6a049",
           "nftCount": 20,
           "isContract": false,
-          "tokenValueUsd": 42830.18,
-          "nftValueUsd": 191917.77,
-          "totalValueUsd": 234747.95,
+          "tokenValueUsd": 43473.68,
+          "nftValueUsd": 191351.39,
+          "totalValueUsd": 234825.07,
           "pnl": {
             "buyCount": 20,
             "sellCount": 0,
@@ -388,7 +388,7 @@
       ],
       "contract_address": "0xAe42D5511886590538160A3cbDb91388cf1e76A3",
       "blockscout_url": "https://robinhoodchain.blockscout.com/token/0xAe42D5511886590538160A3cbDb91388cf1e76A3?tab=holders",
-      "last_updated_iso": "2026-10-01T02:02:33.895616+00:00"
+      "last_updated_iso": "2026-10-01T03:02:37.187247+00:00"
     },
     {
       "slug": "robinhood-kitties",
@@ -398,7 +398,7 @@
       "total_supply": 1967,
       "unique_holders": 562,
       "stats": {
-        "volume": 98.67456299702359,
+        "volume": 98.68227800330806,
         "sales": 3907,
         "numOwners": 562,
         "floorPrice": 0.0057,
@@ -406,17 +406,17 @@
         "intervals": [
           {
             "interval": "one_day",
-            "volume": 0.012140999999999999,
+            "volume": 0.012141949260766451,
             "sales": 2
           },
           {
             "interval": "seven_day",
-            "volume": 0.034440899999999997,
+            "volume": 0.034443592809087493,
             "sales": 7
           },
           {
             "interval": "thirty_day",
-            "volume": 0.6992989732313132,
+            "volume": 0.6993536488823557,
             "sales": 62
           }
         ]
@@ -432,9 +432,9 @@
           "address": "0xc8b5493658b3426128e5a47e70942144b21f3301",
           "nftCount": 50,
           "isContract": false,
-          "tokenValueUsd": 3547.09,
-          "nftValueUsd": 2409.66,
-          "totalValueUsd": 5956.76,
+          "tokenValueUsd": 3547.72,
+          "nftValueUsd": 2406.55,
+          "totalValueUsd": 5954.27,
           "pnl": {
             "buyCount": 45,
             "sellCount": 0,
@@ -455,9 +455,9 @@
           "address": "0x54921460cf41bb117e7f20323bdd061666191555",
           "nftCount": 48,
           "isContract": false,
-          "tokenValueUsd": 4790.36,
-          "nftValueUsd": 9687.14,
-          "totalValueUsd": 14477.5,
+          "tokenValueUsd": 4791.22,
+          "nftValueUsd": 9672.83,
+          "totalValueUsd": 14464.05,
           "pnl": {
             "buyCount": 48,
             "sellCount": 0,
@@ -478,9 +478,9 @@
           "address": "0x510dcb4deedf12e89b156d11b990752eb7653e66",
           "nftCount": 44,
           "isContract": false,
-          "tokenValueUsd": 1985.57,
-          "nftValueUsd": 355.38,
-          "totalValueUsd": 2340.95,
+          "tokenValueUsd": 1980.17,
+          "nftValueUsd": 354.83,
+          "totalValueUsd": 2335.0,
           "pnl": {
             "buyCount": 44,
             "sellCount": 0,
@@ -501,9 +501,9 @@
           "address": "0xea8a5b58fbae1ff68cb1a83a4aac24a5e6713bc0",
           "nftCount": 43,
           "isContract": false,
-          "tokenValueUsd": 812.32,
-          "nftValueUsd": 398.7,
-          "totalValueUsd": 1211.01,
+          "tokenValueUsd": 811.22,
+          "nftValueUsd": 398.08,
+          "totalValueUsd": 1209.3,
           "pnl": {
             "buyCount": 55,
             "sellCount": 12,
@@ -524,9 +524,9 @@
           "address": "0x117337b4a2ce4998d3c5ee0d442ac0643fde0c11",
           "nftCount": 38,
           "isContract": false,
-          "tokenValueUsd": 59973.64,
-          "nftValueUsd": 344.68,
-          "totalValueUsd": 60318.31,
+          "tokenValueUsd": 59974.44,
+          "nftValueUsd": 344.95,
+          "totalValueUsd": 60319.39,
           "pnl": {
             "buyCount": 0,
             "sellCount": 2,
@@ -547,9 +547,9 @@
           "address": "0xf5b8e8a394bdd7c445cd643f84133e15b547fa26",
           "nftCount": 37,
           "isContract": false,
-          "tokenValueUsd": 4388.36,
-          "nftValueUsd": 298.61,
-          "totalValueUsd": 4686.98,
+          "tokenValueUsd": 4384.25,
+          "nftValueUsd": 298.15,
+          "totalValueUsd": 4682.41,
           "pnl": {
             "buyCount": 0,
             "sellCount": 3,
@@ -570,9 +570,9 @@
           "address": "0x52512aa9785b9ec16c8bf6767b477aecae2aa09b",
           "nftCount": 33,
           "isContract": false,
-          "tokenValueUsd": 30498.77,
-          "nftValueUsd": 1374.83,
-          "totalValueUsd": 31873.6,
+          "tokenValueUsd": 34334.68,
+          "nftValueUsd": 1369.81,
+          "totalValueUsd": 35704.49,
           "pnl": {
             "buyCount": 40,
             "sellCount": 5,
@@ -593,9 +593,9 @@
           "address": "0x32be5ddfca516f5ad4ce4a0346e87f5a596581fc",
           "nftCount": 31,
           "isContract": false,
-          "tokenValueUsd": 3132.74,
-          "nftValueUsd": 259.88,
-          "totalValueUsd": 3392.62,
+          "tokenValueUsd": 3137.5,
+          "nftValueUsd": 259.48,
+          "totalValueUsd": 3396.97,
           "pnl": {
             "buyCount": 31,
             "sellCount": 0,
@@ -616,9 +616,9 @@
           "address": "0x1ed3f00fa2ca1d053b418e57bdafaa435c7be19a",
           "nftCount": 31,
           "isContract": false,
-          "tokenValueUsd": 263.53,
-          "nftValueUsd": 257.45,
-          "totalValueUsd": 520.97,
+          "tokenValueUsd": 263.12,
+          "nftValueUsd": 257.86,
+          "totalValueUsd": 520.98,
           "pnl": {
             "buyCount": 0,
             "sellCount": 0,
@@ -639,9 +639,9 @@
           "address": "0x812e695bc5f12cc6080236cc3a3023095da2e75f",
           "nftCount": 28,
           "isContract": false,
-          "tokenValueUsd": 793.58,
-          "nftValueUsd": 226.95,
-          "totalValueUsd": 1020.53,
+          "tokenValueUsd": 793.59,
+          "nftValueUsd": 226.6,
+          "totalValueUsd": 1020.19,
           "pnl": {
             "buyCount": 28,
             "sellCount": 0,
@@ -662,9 +662,9 @@
           "address": "0x3ed6d5e32f5fc7b86dd5821a600daa096c45bbb6",
           "nftCount": 27,
           "isContract": false,
-          "tokenValueUsd": 3281.56,
-          "nftValueUsd": 4101.16,
-          "totalValueUsd": 7382.72,
+          "tokenValueUsd": 3265.0,
+          "nftValueUsd": 4066.41,
+          "totalValueUsd": 7331.41,
           "pnl": {
             "buyCount": 27,
             "sellCount": 0,
@@ -685,9 +685,9 @@
           "address": "0x78b8256436ff280f6cace8bd9491c033b6e95850",
           "nftCount": 26,
           "isContract": false,
-          "tokenValueUsd": 75.11,
-          "nftValueUsd": 249.65,
-          "totalValueUsd": 324.76,
+          "tokenValueUsd": 75.12,
+          "nftValueUsd": 250.89,
+          "totalValueUsd": 326.0,
           "pnl": {
             "buyCount": 26,
             "sellCount": 0,
@@ -708,9 +708,9 @@
           "address": "0x514d1105c57fbf143ee128ef18aa430facda2151",
           "nftCount": 26,
           "isContract": false,
-          "tokenValueUsd": 743.34,
-          "nftValueUsd": 8620.85,
-          "totalValueUsd": 9364.19,
+          "tokenValueUsd": 742.22,
+          "nftValueUsd": 8489.7,
+          "totalValueUsd": 9231.92,
           "pnl": {
             "buyCount": 26,
             "sellCount": 0,
@@ -731,9 +731,9 @@
           "address": "0x814a128c8b65e428dc9864cac3d3031b03e677bc",
           "nftCount": 22,
           "isContract": false,
-          "tokenValueUsd": 47838.93,
-          "nftValueUsd": 536.17,
-          "totalValueUsd": 48375.1,
+          "tokenValueUsd": 48436.0,
+          "nftValueUsd": 536.29,
+          "totalValueUsd": 48972.29,
           "pnl": {
             "buyCount": 32,
             "sellCount": 21,
@@ -754,9 +754,9 @@
           "address": "0x4cb2f2726f998b62edcb2ea47d217b9c0d8a55f7",
           "nftCount": 21,
           "isContract": false,
-          "tokenValueUsd": 396.16,
-          "nftValueUsd": 176.74,
-          "totalValueUsd": 572.91,
+          "tokenValueUsd": 396.07,
+          "nftValueUsd": 177.28,
+          "totalValueUsd": 573.35,
           "pnl": {
             "buyCount": 0,
             "sellCount": 0,
@@ -776,7 +776,7 @@
       ],
       "contract_address": "0x979364e11831c9508771a226245b6e97fb9a45d1",
       "blockscout_url": "https://robinhoodchain.blockscout.com/token/0x979364e11831c9508771a226245b6e97fb9a45d1?tab=holders",
-      "last_updated_iso": "2026-10-01T02:03:21.925373+00:00"
+      "last_updated_iso": "2026-10-01T03:03:25.593391+00:00"
     }
   ]
 }
